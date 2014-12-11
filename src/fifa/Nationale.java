@@ -5,6 +5,20 @@
  */
 package fifa;
 
+import java.util.ArrayList;
+
 
 public class Nationale extends Competition {
+
+    public Nationale() {
+        super();
+    }
+
+    public Nationale(String nomCompetition, int saison, int idCompetition, ArrayList<Equipe> equipe) {
+        super(nomCompetition, saison, idCompetition, equipe);
+    }
+    
+
+    
+    
 }

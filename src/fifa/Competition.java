@@ -7,7 +7,7 @@ package fifa;
 
 import java.util.ArrayList;
 
-public class Competition {
+public abstract class Competition {
 
     private String nomCompetition;
     private int saison;
@@ -19,6 +19,15 @@ public class Competition {
     public Competition() {
 
     }
+
+    public Competition(String nomCompetition, int saison, int idCompetition, ArrayList<Equipe> equipe) {
+        this.nomCompetition = nomCompetition;
+        this.saison = saison;
+        this.idCompetition = idCompetition;
+        this.equipe = equipe;
+    }
+    
+    
 
     public String getNomCompetition() {
         return nomCompetition;
