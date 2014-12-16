@@ -35,6 +35,11 @@ public class Match {
         return new Match(equipeExterieure, equipeLocale);
     }
     
+   @Override
+    public String toString(){
+			return equipeLocale.getNomEquipe()+" vs "+equipeExterieure.getNomEquipe();
+		}
+    
     
    
   

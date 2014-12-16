@@ -79,4 +79,8 @@ public class Pays {
         }
     }
 
+    public ArrayList<Equipe> getEquipe() {
+        return equipe;
+    }
+
 }

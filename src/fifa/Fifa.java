@@ -18,7 +18,8 @@ public class Fifa {
         Pays test = new Pays(1, "test");
         test.importEquipe();
         test.afficheEquipe();
-        
+        Championnat chp = new Championnat("test", 1, 1, test.getEquipe());
+        chp.affiche();
     }
     
 }

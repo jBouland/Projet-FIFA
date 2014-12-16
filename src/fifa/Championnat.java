@@ -13,9 +13,16 @@ public class Championnat extends Nationale {
     private int nbEquipe;
     private int nbJournee;
     private Match[][] rencontres;
+    private Position[] classement;
+    
 
     public Championnat() {
         super();
+        nbEquipe = equipe.size();
+        nbJournee = 2 * (nbEquipe - 1);
+        rencontres = new Match[nbJournee][nbEquipe / 2];
+        classement = new Position[this.equipe.size()];
+        genererMatches();
     }
 
     public Championnat(String nomCompetition, int saison, int idCompetition, ArrayList<Equipe> equipe) {
@@ -23,61 +30,63 @@ public class Championnat extends Nationale {
         nbEquipe = equipe.size();
         nbJournee = 2 * (nbEquipe - 1);
         rencontres = new Match[nbJournee][nbEquipe / 2];
+        genererMatches();
     }
 
-    private void genererMatches() {
-        Collections.shuffle(equipe);
+    private boolean genererMatches() {
+        Collections.shuffle(this.equipe);
         //c'est ici qu'on mélange l'équipe.
         ArrayList<Match> listeMatch = new ArrayList();
 
         for (int i = 0; i < nbEquipe; i++) {
             for (int j = i + 1; j < nbEquipe; j++) {
-                listeMatch.add(new Match(equipe.get(i), equipe.get(j)));
+                listeMatch.add(new Match(this.equipe.get(i), this.equipe.get(j)));
             }
         }
 
-        boolean[][] equipesDispo = new boolean[nbJournee/2][nbEquipe];
-
+        boolean[][] equipesDispo = new boolean[nbJournee / 2][nbEquipe];
+        boolean continuer = true;
         while (!listeMatch.isEmpty()) {
-            for (int i = 0; i < nbJournee/2; i++) {
-                for (int j = 0; j < nbEquipe / 2; j++) {
-                    if (rencontres[i][j] == null) {
-                        if (!equipesDispo[j][equipe.indexOf(listeMatch.get(0).getEquipeLocale())]
-                                && !equipesDispo[j][equipe.indexOf(listeMatch.get(0).getEquipeExterieure())]) {
+            for (int i = 0; i < nbJournee / 2; i++) {
+                if (!listeMatch.isEmpty()) {
 
-                            rencontres[i][j] = listeMatch.get(0);
-                            listeMatch.remove(0);
+                    if (!equipesDispo[i][this.equipe.indexOf(listeMatch.get(0).getEquipeLocale())]
+                            && !equipesDispo[i][this.equipe.indexOf(listeMatch.get(0).getEquipeExterieure())]) {
+                        continuer = true;
+                        for (int j = 0; j < nbEquipe / 2; j++) {
+                            if (continuer) {
+                                if (rencontres[i][j] == null) {
+                                    rencontres[i][j] = listeMatch.get(0);
+                                    listeMatch.remove(0);
 
-                            equipesDispo[j][equipe.indexOf(rencontres[i][j].getEquipeLocale())] = true;
-                            equipesDispo[j][equipe.indexOf(rencontres[i][j].getEquipeExterieure())] = true;
+                                    equipesDispo[i][this.equipe.indexOf(rencontres[i][j].getEquipeLocale())] = true;
+                                    equipesDispo[i][this.equipe.indexOf(rencontres[i][j].getEquipeExterieure())] = true;
+
+                                    continuer = false;
+                                }
+                            }
                         }
                     }
                 }
             }
         }
-        for(int i = nbJournee/2; i< nbJournee; i++){
-            for(int j = 0; j < nbEquipe/2; j++){
-                rencontres[i][j]=rencontres[i-(nbJournee/2)][j].mirror();
+        for (int i = nbJournee / 2; i < nbJournee; i++) {
+            for (int j = 0; j < nbEquipe / 2; j++) {
+                rencontres[i][j] = rencontres[i - (nbJournee / 2)][j].mirror();
             }
         }
-        
-
+        return false;
     }
 
-    //verifie si l'équipe a a jouer le match aller avec l'équpe b
-    private boolean checkJouer(Equipe a, Equipe b) {
+   
 
+    public void affiche() {
         for (int i = 0; i < nbJournee; i++) {
+            System.out.println("** Journée "+i+" **");
             for (int j = 0; j < nbEquipe / 2; j++) {
-                if (rencontres[i][j].getEquipeLocale().getIdEquipe() == a.getIdEquipe()) {
-                    if (rencontres[i][j].getEquipeExterieure().getIdEquipe() == b.getIdEquipe()) {
-                        return false;
-                    }
-                }
+                System.out.println(j+" "+rencontres[i][j]);
             }
         }
-
-        return true;
     }
 
 }
