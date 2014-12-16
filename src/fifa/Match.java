@@ -14,9 +14,28 @@ public class Match {
    private int scoreExterieur;
    private int idMatch;
    
-   public Equipe equipeLocale;
-   public Equipe equipeExterieure;
-   public ArrayList<Arbitre> arbitre;
+   private Equipe equipeLocale;
+   private Equipe equipeExterieure;
+   private ArrayList<Arbitre> arbitre;
+
+    public Equipe getEquipeLocale() {
+        return equipeLocale;
+    }
+
+    public Equipe getEquipeExterieure() {
+        return equipeExterieure;
+    }
+
+    public Match(Equipe equipeLocale, Equipe equipeExterieure) {
+        this.equipeLocale = equipeLocale;
+        this.equipeExterieure = equipeExterieure;
+    }
+    
+    public Match mirror(){
+        return new Match(equipeExterieure, equipeLocale);
+    }
+    
+    
    
   
 

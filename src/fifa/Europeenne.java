@@ -6,4 +6,8 @@
 package fifa;
 
 public class Europeenne extends Competition {
+
+
+    
+    
 }

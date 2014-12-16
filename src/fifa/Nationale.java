@@ -18,7 +18,5 @@ public class Nationale extends Competition {
         super(nomCompetition, saison, idCompetition, equipe);
     }
     
-
-    
     
 }
