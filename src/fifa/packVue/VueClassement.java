@@ -11,13 +11,20 @@ import java.awt.GridBagConstraints;
 import java.awt.List;
 import java.util.ArrayList;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import static javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS;
+import static javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN;
+import static javax.swing.JTable.AUTO_RESIZE_OFF;
+import static javax.swing.JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -28,49 +35,32 @@ import javax.swing.table.TableRowSorter;
 public class VueClassement extends JPanel {//pour ligue 1
 
     private JTable classement;
-    private String[] columnNames = {"CLASSEMENT", "EQUIPES", "J", "G", "N", "P"};
-    private Object row[][] = new Object[20][6];
+    private String[] columnNames = {"#", "EQUIPES","Point", "J", "G", "N", "P","BM","BE"};
+    private Object row[][] = new Object[20][9];
     private Championnat c;
 
     public VueClassement(Championnat x) {
         c = x;
-        setBorder(new TitledBorder("Classement" + c.getNomCompetition()));
-
+        setBorder(new TitledBorder("Classement"));
+        testTable();
         classement = new JTable(row, columnNames);
-        //
-        TableModel model = new DefaultTableModel(row, columnNames) {
-            public Class<?> getColumnClass(int column) {
-                return getValueAt(0, column).getClass();
-            }
-        };
-        classement = new JTable(model);
-        TableRowSorter<TableModel> sorter = new TableRowSorter<>(classement.getModel());
-
-        classement.setRowSorter(sorter);
-        ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>();
-
-        int columnIndexToSort = 0;
-        sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING));
-
-        sorter.setSortKeys(sortKeys);
-        sorter.sort();
-        
-        
-
-        //
+       // classement.setShowVerticalLines(false);
         JScrollPane scrollPane = new JScrollPane(classement);
-        classement.setPreferredScrollableViewportSize(new Dimension(500, 70));
-        
-         GridBagConstraints cont = new GridBagConstraints();
+        classement.setPreferredScrollableViewportSize(new Dimension(500, 120));
+       classement.setEnabled(false);
+        classement.getColumnModel().getColumn(1).setPreferredWidth(220);
+       DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        classement.setDefaultRenderer(String.class, centerRenderer);
+        GridBagConstraints cont = new GridBagConstraints();
         cont.fill = GridBagConstraints.BOTH;
-        
-        cont.gridx=0;
-        cont.gridy=0;
-        this.add(classement,cont);
-        this.setSize(new Dimension(600,300));
-             
+
         
         
+        cont.gridx = 0;
+        cont.gridy = 0;
+        this.add(new JScrollPane(classement));
+        this.setSize(new Dimension(600, 300));
 
     }
 
@@ -81,14 +71,17 @@ public class VueClassement extends JPanel {//pour ligue 1
         row[0][3] = "0";
         row[0][4] = "0";
         row[0][5] = "1";
-
+        row[0][6] = "1";
+        row[0][7] = "1";
+        row[0][8] = "1";
+/*
         row[1][0] = "1";
         row[1][1] = "Star Poulpe eat Disco Cookies";
         row[1][2] = "1";
         row[1][3] = "1";
         row[1][4] = "0";
         row[1][5] = "0";
-
+*/
     }
 
     public void chargementClassement() {// remplissage du tableaux
@@ -99,4 +92,12 @@ public class VueClassement extends JPanel {//pour ligue 1
 
     }
 
+    public void lockTable(){
+        for (int i=0;i<classement.getRowCount();i++){
+         
+        }
+        
+        
+        
+    }
 }
