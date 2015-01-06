@@ -5,6 +5,8 @@
  */
 package fifa;
 
+import fifa.packVue.VueGlobaleAdmin;
+
 /**
  *
  * @author Flo
@@ -15,11 +17,10 @@ public class Fifa {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Pays test = new Pays(1, "test");
-        test.importEquipe();
-        test.afficheEquipe();
-        Championnat chp = new Championnat("test", 1, 1, test.getEquipe());
-        chp.affiche();
+       
+        VueGlobaleAdmin fenetre = new VueGlobaleAdmin();
+        fenetre.setVisible(true);
+        
     }
     
 }
