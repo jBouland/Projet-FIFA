@@ -15,6 +15,7 @@ public class Championnat extends Nationale {
     private int nbJournee;
     private Match[][] rencontres;
     private Position[] classement;
+    private ArrayList<Journee> listeJournee;
 
     public Championnat() {
         super();
@@ -22,6 +23,7 @@ public class Championnat extends Nationale {
         nbJournee = 2 * (nbEquipe - 1);
         rencontres = new Match[nbJournee][nbEquipe / 2];
         classement = new Position[this.equipe.size()];
+        listeJournee = new ArrayList();
         genererMatches();
     }
 
@@ -30,12 +32,12 @@ public class Championnat extends Nationale {
         nbEquipe = equipe.size();
         nbJournee = 2 * (nbEquipe - 1);
         rencontres = new Match[nbJournee][nbEquipe / 2];
-        
+        listeJournee = new ArrayList();
         classement = new Position[this.equipe.size()];
-        for(int i =0; i < equipe.size(); i++){
-            classement[i]=new Position(equipe.get(i));
+        for (int i = 0; i < equipe.size(); i++) {
+            classement[i] = new Position(equipe.get(i));
         }
-        
+
         genererMatches();
     }
 
@@ -63,6 +65,8 @@ public class Championnat extends Nationale {
                             if (continuer) {
                                 if (rencontres[i][j] == null) {
                                     rencontres[i][j] = listeMatch.get(0);
+                                   
+                                    
                                     listeMatch.remove(0);
 
                                     equipesDispo[i][this.equipe.indexOf(rencontres[i][j].getEquipeLocale())] = true;
@@ -81,7 +85,8 @@ public class Championnat extends Nationale {
                 rencontres[i][j] = rencontres[i - (nbJournee / 2)][j].mirror();
             }
         }
-        return false;
+
+        return true;
     }
 
     public void affiche() {
@@ -111,7 +116,6 @@ public class Championnat extends Nationale {
         match.setScore(scoreLocal, scoreExterieur);
         match.setDateMatch(dateMatch);
 
-
         for (int i = 0; i < equipe.size(); i++) {
             if (match.getEquipeLocale().getIdEquipe() == classement[i].getEquipe().getIdEquipe()) {
                 classement[i].setResultatsChampionnat(scoreLocal, scoreExterieur);
@@ -121,7 +125,7 @@ public class Championnat extends Nationale {
         }
         quickSort(0, equipe.size() - 1);
         for (int i = 0; i < equipe.size(); i++) {
-            System.out.println((i+1)+") "+classement[i].getEquipe().getNomEquipe()+": "+classement[i].getScore());
+            System.out.println((i + 1) + ") " + classement[i].getEquipe().getNomEquipe() + ": " + classement[i].getScore());
         }
         System.out.println("");
     }
