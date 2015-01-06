@@ -18,6 +18,10 @@ public class Fifa {
      */
     public static void main(String[] args) {
        
+        Pays test = new Pays(1, "Allemagne");
+        test.importEquipe();
+        Championnat ch = new Championnat("All", 1, 1, test.getEquipe());
+        ch.affiche();
         VueGlobaleAdmin fenetre = new VueGlobaleAdmin();
         fenetre.setVisible(true);
         

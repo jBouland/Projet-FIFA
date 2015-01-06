@@ -96,5 +96,11 @@ public class Journee {
         }
         return retour;
     }
+    
+    void affiche(){
+        for (Match match_journee1 : match_journee) {
+            System.out.println(match_journee1);
+        }
+    }
 
 }

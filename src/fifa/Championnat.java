@@ -38,6 +38,10 @@ public class Championnat extends Nationale {
             classement[i] = new Position(equipe.get(i));
         }
 
+        for (int i = 0; i < nbJournee; i++) {
+            listeJournee.add(new Journee(i + 1));
+        }
+
         genererMatches();
     }
 
@@ -65,8 +69,9 @@ public class Championnat extends Nationale {
                             if (continuer) {
                                 if (rencontres[i][j] == null) {
                                     rencontres[i][j] = listeMatch.get(0);
-                                   
-                                    
+
+                                    listeJournee.get(i).ajouterMatch(rencontres[i][j]);
+
                                     listeMatch.remove(0);
 
                                     equipesDispo[i][this.equipe.indexOf(rencontres[i][j].getEquipeLocale())] = true;
@@ -83,6 +88,7 @@ public class Championnat extends Nationale {
         for (int i = nbJournee / 2; i < nbJournee; i++) {
             for (int j = 0; j < nbEquipe / 2; j++) {
                 rencontres[i][j] = rencontres[i - (nbJournee / 2)][j].mirror();
+                listeJournee.get(i).ajouterMatch(rencontres[i][j]);
             }
         }
 
@@ -92,9 +98,10 @@ public class Championnat extends Nationale {
     public void affiche() {
         for (int i = 0; i < nbJournee; i++) {
             System.out.println("** Journée " + i + " **");
-            for (int j = 0; j < nbEquipe / 2; j++) {
-                System.out.println(j + " " + rencontres[i][j]);
-            }
+            listeJournee.get(i).affiche();
+            /*          for (int j = 0; j < nbEquipe / 2; j++) {
+             System.out.println(j + " " + rencontres[i][j]);
+             }*/
         }
     }
 
