@@ -18,6 +18,19 @@ public class Match {
    private Equipe equipeExterieure;
    private ArrayList<Arbitre> arbitre;
 
+    public void setDateMatch(Date dateMatch) {
+        this.dateMatch = dateMatch;
+    }
+
+    public void setIdMatch(int idMatch) {
+        this.idMatch = idMatch;
+    }
+    
+    public void setScore(int scoreL, int scoreEx){
+        scoreLocal = scoreL;
+        scoreExterieur = scoreEx;
+    }
+
     public Equipe getEquipeLocale() {
         return equipeLocale;
     }

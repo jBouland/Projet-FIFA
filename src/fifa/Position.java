@@ -6,24 +6,28 @@
 package fifa;
 
 public class Position {
+
     private int positionEquipe;
-    private Equipe nom;
+    private Equipe equipe;
     private int nombreVictoire;
     private int nombreNul;
     private int nombreDefaite;
     private int butsMarques;
-    private int butEncaisses;
+    private int butsEncaisses;
     private int score;
-    
 
-    public Position(Equipe nom) {
-        this.nom = nom;
-        this.positionEquipe=0;
-        this.nombreVictoire=0;
-        this.nombreDefaite=0;
-        this.nombreNul=0;
-        this.butsMarques=0;
-        this.butsMarques=0;
+    public int getScore() {
+        return score;
+    }
+
+    public Position(Equipe equipe) {
+        this.equipe = equipe;
+        this.positionEquipe = 0;
+        this.nombreVictoire = 0;
+        this.nombreDefaite = 0;
+        this.nombreNul = 0;
+        this.butsMarques = 0;
+        this.butsEncaisses = 0;
     }
 
     public int getPositionEquipe() {
@@ -34,12 +38,12 @@ public class Position {
         this.positionEquipe = positionEquipe;
     }
 
-    public Equipe getNom() {
-        return nom;
+    public Equipe getEquipe() {
+        return equipe;
     }
 
-    public void setNom(Equipe nom) {
-        this.nom = nom;
+    public void setNom(Equipe equipe) {
+        this.equipe = equipe;
     }
 
     public int getNombreVictoire() {
@@ -74,11 +78,29 @@ public class Position {
         this.butsMarques = butsMarques;
     }
 
-    public int getButEncaisses() {
-        return butEncaisses;
+    public int getButsEncaisses() {
+        return butsEncaisses;
     }
 
-    public void setButEncaisses(int butEncaisses) {
-        this.butEncaisses = butEncaisses;
+    public void setButsEncaisses(int butEncaisses) {
+        this.butsEncaisses = butEncaisses;
+    }
+
+    public void setResultatsChampionnat(int butsMarques, int butsEncaisses) {
+
+        this.butsMarques += butsMarques;
+        this.butsEncaisses += butsEncaisses;
+
+        if (butsMarques > butsEncaisses) {
+            this.nombreVictoire++;
+            score += 3;
+
+        } else if (butsMarques < butsEncaisses) {
+            this.nombreDefaite++;
+
+        } else {
+            this.nombreNul++;
+            score++;
+        }
     }
 }
