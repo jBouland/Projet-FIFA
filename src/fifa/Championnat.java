@@ -7,6 +7,7 @@ package fifa;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 public class Championnat extends Nationale {
 
@@ -89,4 +90,7 @@ public class Championnat extends Nationale {
         }
     }
 
+    public void ajoutResultat(int scoreLocal, int scoreExterieure, Match match, Date dateMatch){;
+        
+    }
 }

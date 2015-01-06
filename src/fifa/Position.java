@@ -13,6 +13,8 @@ public class Position {
     private int nombreDefaite;
     private int butsMarques;
     private int butEncaisses;
+    private int score;
+    
 
     public Position(Equipe nom) {
         this.nom = nom;
