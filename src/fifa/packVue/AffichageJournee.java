@@ -5,6 +5,7 @@
  */
 package fifa.packVue;
 
+import fifa.Championnat;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -28,11 +29,12 @@ public class AffichageJournee extends JPanel implements ActionListener, ListSele
     private JButton JButton_ModifierScore;
     private JButton JButton_GenererAleatoirement;
     
-    private String champ;
-    private String jour;
+    private Championnat champ;
+    private int jour;
     
     
-    public AffichageJournee(String Championnat_,String jour_ ){
+    public AffichageJournee(Championnat Championnat_,int jour_ ){
+      
       champ=Championnat_;
       jour=jour_;
       JlistProduit=new JList<>();

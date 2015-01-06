@@ -6,6 +6,7 @@
 package fifa.packVue;
 
 import fifa.Championnat;
+import fifa.Pays;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -30,37 +31,42 @@ import javax.swing.JPanel;
 public class VueGlobaleAdmin extends JFrame implements ActionListener {
 
     private ArrayList<Championnat> listeChampionnat;
+
     private int[] journee;
+
     private VueClassement vc;
     private VueMatchAdmin vm;
+
     private JLabel selectChampionnat = new JLabel("Veuillez sélectionner un championnat");
     private JLabel selectJournee = new JLabel("Veuillez sélectionner une journée");
-
-    private JComboBox listeChampionnatJComboBox;
-    private JComboBox listeJournéeJComboBox;
     private JLabel Titre = new JLabel("Bievenue Admin");
     
+    private JComboBox listeChampionnatJComboBox;
+    private JComboBox listeJournéeJComboBox;
     
-    
-      
+    private int journeSelect=1;
+    private Championnat championnatActu;
 
     public VueGlobaleAdmin() {
-
+        listeChampionnat = new ArrayList<Championnat>();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(1000, 800));
-            afficheFond();
+        
+        afficheFond();
+        CreationChampionnatTemp();
         creationComboChampionnat();
         creationComboJournee();
 
         init();
-    
 
     }
 
     public void init() {
-//      Championnat c=new Championnat();
-        vc=new VueClassement(null);
+
+        vc = new VueClassement(null);
+      //  vm=new VueMatchAdmin( listeChampionnat.get(listeChampionnatJComboBox.getSelectedIndex()),listeJournéeJComboBox.getSelectedItem() );
         JPanel pano = new JPanel();
+        JPanel pano2=new JPanel();
         
         // ajout du gestionnaire de placement 
         pano.setLayout(new GridBagLayout());
@@ -87,24 +93,23 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
         cont.gridx = 3;
         cont.gridy = 1;
         pano.add(listeJournéeJComboBox, cont);
-        
-        
-        
+
         cont.gridwidth = 5;
         cont.gridx = 0;
         cont.gridy = 2;
-        pano.add(vc,cont);
+        pano.add(vc, cont);
 
+        
         cont.gridx = 2;
         cont.gridy = 2;
-//        pano.add(vm);
+//          pano.add(vm);
 
         this.add(pano);
         this.pack();
 
     }
-    
-public void afficheFond() {
+
+    public void afficheFond() {
         GridBagConstraints cont = new GridBagConstraints();
         cont.gridwidth = 6;
         cont.gridx = 0;
@@ -113,24 +118,26 @@ public void afficheFond() {
         this.setContentPane(new JPanel() {
 
             public void paintComponent(Graphics g) {
-                g.drawImage((new ImageIcon("fifa.jpg")).getImage(), 0, 0, null);
+                g.drawImage((new ImageIcon("fifa.jpeg")).getImage(), 0, 0, null);
             }
 
         });
 
         this.pack();
     }
-    public void creationComboChampionnat() {
 
+    public void creationComboChampionnat() {
         listeChampionnatJComboBox = new JComboBox();
+
+        for (int i = 0; i < listeChampionnat.size(); i++) {
+            listeChampionnatJComboBox.addItem(listeChampionnat.get(i).getNomCompetition());
+
+        }
+
         listeChampionnatJComboBox.addItem("Championnat");
 
         listeChampionnatJComboBox.addItem("League1");
 
-        /* for (int i=0;i<listeChampionnat.size();i++){
-         listeChampionnatJComboBox.addItem(listeChampionnat.get(i).getNomCompetition());
-            
-         }   */
     }
 
     public void creationComboJournee() {
@@ -140,10 +147,29 @@ public void afficheFond() {
         }
     }
 
+    public void CreationChampionnatTemp() {
+
+        Pays test = new Pays(1, "test");
+        test.importEquipe();
+        test.afficheEquipe();
+        Championnat chp = new Championnat("test", 1, 1, test.getEquipe());
+        // chp.affiche();
+        listeChampionnat.add(chp);
+        
+        
+        
+        
+    }
+
+    public void affichageJlist(){
+        
+        
+        
+    }
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
-        
-        
+
     }
 
 }
