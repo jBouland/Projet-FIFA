@@ -118,7 +118,7 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
         this.setContentPane(new JPanel() {
 
             public void paintComponent(Graphics g) {
-                g.drawImage((new ImageIcon("fifa.jpeg")).getImage(), 0, 0, null);
+                g.drawImage((new ImageIcon("src/Ressources/fifa.jpeg")).getImage(), 0, 0, null);
             }
 
         });
