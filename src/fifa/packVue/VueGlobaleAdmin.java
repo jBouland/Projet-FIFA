@@ -39,7 +39,7 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
 
     private JLabel selectChampionnat = new JLabel("Veuillez sélectionner un championnat");
     private JLabel selectJournee = new JLabel("Veuillez sélectionner une journée");
-    private JLabel Titre = new JLabel("Bievenue Admin");
+    private JLabel Titre = new JLabel("Bienvenue Admin");
     
     private JComboBox listeChampionnatJComboBox;
     private JComboBox listeJournéeJComboBox;
