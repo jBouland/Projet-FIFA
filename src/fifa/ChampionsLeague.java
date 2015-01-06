@@ -393,6 +393,7 @@ public class ChampionsLeague extends Europeenne {
                             calendrier.get(j).ajouterMatch(matchspossibles.get(randMatch));
                             inv = calendrier.get(j).inverserMatch(matchspossibles.get(randMatch));
                             inv.setNum_journee(j + (nbjournee / 2));
+                            inv.setNum_poule(numPoule(temp2)); // Rajouté  pour le num
                             calendrier.get(j + (nbjournee / 2)).ajouterMatch(inv);
                         } else {
                             t--;
