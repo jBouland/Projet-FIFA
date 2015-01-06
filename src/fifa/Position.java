@@ -29,6 +29,17 @@ public class Position {
         this.butsMarques = 0;
         this.butsEncaisses = 0;
     }
+    
+    public Position(Equipe equipe, int posi_depart) {
+        this.equipe = equipe;
+        this.positionEquipe = posi_depart;
+        this.nombreVictoire = 0;
+        this.nombreDefaite = 0;
+        this.nombreNul = 0;
+        this.butsMarques = 0;
+        this.butsEncaisses = 0;
+        this.score=0;
+    }
 
     public int getPositionEquipe() {
         return positionEquipe;

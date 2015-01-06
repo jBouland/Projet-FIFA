@@ -5,9 +5,12 @@
  */
 package fifa;
 
-public class Europeenne extends Competition {
+import java.util.ArrayList;
 
+public abstract class Europeenne extends Competition {
 
-    
+    public Europeenne(int idCompetition, String nomCoupeEurope, int saison, ArrayList<Equipe> equipe) {
+        super(nomCoupeEurope, idCompetition, saison, equipe);
+    }
     
 }

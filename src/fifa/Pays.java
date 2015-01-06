@@ -21,7 +21,6 @@ public class Pays {
     private String nom;
     private int indiceFIFA;
     private ArrayList<Nationale> championnats;
-
     private ArrayList<Equipe> equipe;
 
     public Pays(int idPays, String nom) {
@@ -47,7 +46,7 @@ public class Pays {
 
             ResultSet rs = lien.executeQuery("SELECT * FROM equipe WHERE idPays LIKE ".concat(Integer.toString(idPays)));
             while (rs.next()) {
-                equipe.add(new Equipe(rs.getInt("idEquipe"), rs.getString("nomEquipe")));
+                equipe.add(new Equipe(rs.getInt("idPays"), rs.getInt("idEquipe"), rs.getString("nomEquipe")));
             }
 
         } catch (Exception e) {

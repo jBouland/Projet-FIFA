@@ -5,5 +5,11 @@
  */
 package fifa;
 
+import java.util.ArrayList;
+
 public class EuropaLeague extends Europeenne {
+
+    public EuropaLeague(int idCompetition, String nomCoupeEurope, int saison, ArrayList<Equipe> equipe) {
+        super(idCompetition, nomCoupeEurope, saison, equipe);
+    }
 }
