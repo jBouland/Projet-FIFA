@@ -7,6 +7,7 @@ package fifa.packVue;
 
 import fifa.Championnat;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -14,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static java.sql.JDBCType.NULL;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -37,21 +39,26 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
     private JComboBox listeChampionnatJComboBox;
     private JComboBox listeJournéeJComboBox;
     private JLabel Titre = new JLabel("Bievenue Admin");
+    
+    
+    
+      
 
     public VueGlobaleAdmin() {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(1000, 800));
-
+            afficheFond();
         creationComboChampionnat();
         creationComboJournee();
 
         init();
+    
 
     }
 
     public void init() {
-       Championnat c=new Championnat();
+//      Championnat c=new Championnat();
         vc=new VueClassement(null);
         JPanel pano = new JPanel();
         
@@ -86,17 +93,33 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
         cont.gridwidth = 5;
         cont.gridx = 0;
         cont.gridy = 2;
-        pano.add(vc);
+        pano.add(vc,cont);
 
         cont.gridx = 2;
         cont.gridy = 2;
-        pano.add(vm);
+//        pano.add(vm);
 
         this.add(pano);
         this.pack();
 
     }
+    
+public void afficheFond() {
+        GridBagConstraints cont = new GridBagConstraints();
+        cont.gridwidth = 6;
+        cont.gridx = 0;
+        cont.gridy = 0;
 
+        this.setContentPane(new JPanel() {
+
+            public void paintComponent(Graphics g) {
+                g.drawImage((new ImageIcon("fifa.jpg")).getImage(), 0, 0, null);
+            }
+
+        });
+
+        this.pack();
+    }
     public void creationComboChampionnat() {
 
         listeChampionnatJComboBox = new JComboBox();
