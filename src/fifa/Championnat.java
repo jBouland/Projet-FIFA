@@ -131,6 +131,7 @@ public class Championnat extends Nationale {
             }
         }
         quickSort(0, equipe.size() - 1);
+        triFinal();
         for (int i = 0; i < equipe.size(); i++) {
             System.out.println((i + 1) + ") " + classement[i].getEquipe().getNomEquipe() + ": " + classement[i].getScore());
         }
@@ -167,4 +168,32 @@ public class Championnat extends Nationale {
         quickSort(debut, droite);
         quickSort(droite + 1, fin);
     }
+
+    public void triFinal() {
+        Position pos_tmp;
+        int ecartE1 = 0, ecartE2 = 0;
+        for (int i = 0; i < equipe.size(); i++) {
+            for (int j = 0; j < equipe.size(); j++) {
+                if (classement[j].getScore() == classement[i].getScore() && i != j) {//si egalite dans le nombre de points
+                    ecartE1 = classement[i].getButsMarques() - classement[i].getButsEncaisses();
+                    ecartE2 = classement[j].getButsMarques() - classement[j].getButsEncaisses();
+                    if (ecartE1 > ecartE2) {
+                        pos_tmp = classement[j];
+                        classement[j] = classement[i];
+                        classement[i] = pos_tmp;
+                        i--;
+                        break;
+                    } else if (ecartE1 == ecartE2) {
+                        pos_tmp = classement[j];
+                        classement[j] = classement[i];
+                        classement[i] = pos_tmp;
+                        break;
+                    }
+
+                }
+            }
+        }
+
+    }
+
 }

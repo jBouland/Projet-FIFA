@@ -11,16 +11,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import static java.sql.JDBCType.NULL;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -40,18 +36,18 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
     private JLabel selectChampionnat = new JLabel("Veuillez sélectionner un championnat");
     private JLabel selectJournee = new JLabel("Veuillez sélectionner une journée");
     private JLabel Titre = new JLabel("Bienvenue Admin");
-    
+
     private JComboBox listeChampionnatJComboBox;
     private JComboBox listeJournéeJComboBox;
-    
-    private int journeSelect=1;
+
+    private int journeSelect = 1;
     private Championnat championnatActu;
 
     public VueGlobaleAdmin() {
         listeChampionnat = new ArrayList<Championnat>();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setMinimumSize(new Dimension(1000, 800));
-        
+        this.setMinimumSize(new Dimension(1280, 720));
+
         afficheFond();
         CreationChampionnatTemp();
         creationComboChampionnat();
@@ -64,10 +60,10 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
     public void init() {
 
         vc = new VueClassement(null);
-      //  vm=new VueMatchAdmin( listeChampionnat.get(listeChampionnatJComboBox.getSelectedIndex()),listeJournéeJComboBox.getSelectedItem() );
+        //  vm=new VueMatchAdmin( listeChampionnat.get(listeChampionnatJComboBox.getSelectedIndex()),listeJournéeJComboBox.getSelectedItem() );
         JPanel pano = new JPanel();
-        JPanel pano2=new JPanel();
-        
+        JPanel pano2 = new JPanel();
+
         // ajout du gestionnaire de placement 
         pano.setLayout(new GridBagLayout());
         GridBagConstraints cont = new GridBagConstraints();
@@ -99,12 +95,10 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
         cont.gridy = 2;
         pano.add(vc, cont);
 
-        
         cont.gridx = 2;
         cont.gridy = 2;
 //          pano.add(vm);
-
-        this.add(pano);
+        this.add(pano, cont);
         this.pack();
 
     }
@@ -117,6 +111,7 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
 
         this.setContentPane(new JPanel() {
 
+            @Override
             public void paintComponent(Graphics g) {
                 g.drawImage((new ImageIcon("src/Ressources/fifa.jpeg")).getImage(), 0, 0, null);
             }
@@ -136,7 +131,7 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
 
         listeChampionnatJComboBox.addItem("Championnat");
 
-        listeChampionnatJComboBox.addItem("League1");
+        listeChampionnatJComboBox.addItem("Ligue 1");
 
     }
 
@@ -155,18 +150,13 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
         Championnat chp = new Championnat("test", 1, 1, test.getEquipe());
         // chp.affiche();
         listeChampionnat.add(chp);
-        
-        
-        
-        
+
     }
 
-    public void affichageJlist(){
-        
-        
-        
+    public void affichageJlist() {
+
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent ae) {
 
