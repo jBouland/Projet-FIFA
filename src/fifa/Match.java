@@ -7,6 +7,7 @@ package fifa;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 public class Match {
 
@@ -44,7 +45,7 @@ public class Match {
 
     @Override
     public String toString() {
-        return "(Poule " + num_poule + ") " + equipeLocale.getNomEquipe() + " - " + equipeExterieure.getNomEquipe();
+        return "(Poule " + num_poule + ") " + equipeLocale.getNomEquipe() + " " + scoreLocal + " - " + scoreExterieur + " " + equipeExterieure.getNomEquipe();
     }
 
     public void setDateMatch(Date dateMatch) {
@@ -122,6 +123,37 @@ public class Match {
 
     public void setEquipeExterieure(Equipe equipeExterieure) {
         this.equipeExterieure = equipeExterieure;
+    }
+
+    public void simulerMatch() {
+
+        Random rd = new Random();
+
+        this.scoreLocal = rd.nextInt(5);
+        this.scoreExterieur = rd.nextInt(5);
+
+    }
+
+    public Equipe getEquipeVictorieuse() {
+
+        if (scoreLocal > scoreExterieur) {
+
+            return equipeLocale;
+        }
+
+        if (scoreExterieur > scoreLocal) {
+
+            return equipeExterieure;
+        }
+
+        if (scoreExterieur == scoreLocal) {
+
+            scoreExterieur++;
+            return equipeExterieure;
+
+        }
+
+        return null;
     }
 
 }

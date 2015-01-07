@@ -65,22 +65,15 @@ public class Fifa {
         }*/
         
         ChampionsLeague cl = new ChampionsLeague(1, "C1", 2014, liste);
-        cl.creerPoule();
-
-        ArrayList<ChampionsLeague.Poule> ret = cl.getGroupes();
-        for (int i = 0; i < ret.size(); i++) {
-            System.out.println("Groupe "+i);
-            for (int j = 0; j < 4; j++) {
-                System.out.println(ret.get(i).getEquipes().get(j).getNomEquipe());
-            }
-            System.out.println("------");
-        }
-        cl.afficherCalendrierPour6();
-        cl.resultatAleatoire();
-        cl.afficherClassement();
-        cl.creerTour(8);
-        cl.affichageTour(0);
         
+        cl.creerPhasePoule();
+        cl.simulerPhasePoule();
+        cl.afficherCalendrierPhasePoule();
+        cl.afficherPhasePoule();
+        
+        cl.creerPhaseFinale();
+        cl.simulerPhaseFinale();
+        cl.affichagePhaseFinale();
        
         /*test.importEquipe();
          test.afficheEquipe();*/
