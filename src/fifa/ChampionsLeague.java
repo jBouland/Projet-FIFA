@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 ///RAJOUTER LA CONDITION DES MEMES PAYS POUR LA CREATION DES POULES
+///BDD POULES ET TOURS ???
 public class ChampionsLeague extends Europeenne {
 
     private ArrayList<Poule> phase_poule;
