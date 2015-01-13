@@ -27,6 +27,7 @@ public class Journee {
     Journee(int j) {
         num_Journee = j;
         match_journee = new ArrayList<Match>();
+        this.estModifiable=true;
     }
 
     public boolean getEstModifiable(){
