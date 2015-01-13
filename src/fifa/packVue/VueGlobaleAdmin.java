@@ -31,7 +31,7 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
     private int[] journee;
 
     private VueClassement vc;
-    private VueMatchAdmin vm;
+    private AffichageJournee aj;
 
     private JLabel selectChampionnat = new JLabel("Veuillez sélectionner un championnat");
     private JLabel selectJournee = new JLabel("Veuillez sélectionner une journée");
@@ -52,7 +52,7 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
         CreationChampionnatTemp();
         creationComboChampionnat();
         creationComboJournee();
-
+        championnatActu=listeChampionnat.get(0);
         init();
 
     }
@@ -60,45 +60,49 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
     public void init() {
 
         vc = new VueClassement(null);
-        //  vm=new VueMatchAdmin( listeChampionnat.get(listeChampionnatJComboBox.getSelectedIndex()),listeJournéeJComboBox.getSelectedItem() );
-        JPanel pano = new JPanel();
-        JPanel pano2 = new JPanel();
-
+        aj = new AffichageJournee(championnatActu, journeSelect);
+        JPanel   mainPanel= new JPanel();
+       
         // ajout du gestionnaire de placement 
-        pano.setLayout(new GridBagLayout());
+        mainPanel.setLayout(new GridBagLayout());
         GridBagConstraints cont = new GridBagConstraints();
         cont.fill = GridBagConstraints.HORIZONTAL;
         cont.ipadx = 5;
 
         cont.gridx = 0;
         cont.gridy = 0;
-        pano.add(Titre, cont);
+         mainPanel.add(Titre, cont);
 
         cont.gridx = 0;
         cont.gridy = 1;
-        pano.add(selectChampionnat, cont);
+         mainPanel.add(selectChampionnat, cont);
 
         cont.gridx = 1;
         cont.gridy = 1;
-        pano.add(listeChampionnatJComboBox, cont);
+         mainPanel.add(listeChampionnatJComboBox, cont);
 
         cont.gridx = 2;
         cont.gridy = 1;
-        pano.add(selectJournee, cont);
+         mainPanel.add(selectJournee, cont);
 
         cont.gridx = 3;
         cont.gridy = 1;
-        pano.add(listeJournéeJComboBox, cont);
-
+        mainPanel.add(listeJournéeJComboBox, cont);
+        
+// Ajout du petit panneau dans le gros panneau de la JFrame
         cont.gridwidth = 5;
         cont.gridx = 0;
         cont.gridy = 2;
-        pano.add(vc, cont);
+         mainPanel.add(vc, cont);
 
-        cont.gridx = 2;
-        cont.gridy = 2;
-//          pano.add(vm);
-        this.add(pano, cont);
+        cont.gridheight=6;
+       cont.gridx=4;
+       cont.gridy=0;
+         mainPanel.add(aj,cont);
+             
+       cont.gridx=0;
+       cont.gridy=0;
+       this.add(mainPanel,cont);
         this.pack();
 
     }
