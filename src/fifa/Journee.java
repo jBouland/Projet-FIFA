@@ -120,4 +120,11 @@ public class Journee {
         }
     }
 
+    
+    public void  genererScoreJournee(){
+        
+        
+        
+        
+    }
 }
