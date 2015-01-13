@@ -133,7 +133,10 @@ public class Championnat extends Nationale {
 
     }
 
-    public void ajoutResultat(int scoreLocal, int scoreExterieur, Match match, Date dateMatch) {;
+    public boolean ajoutResultat(int scoreLocal, int scoreExterieur, Match match, Date dateMatch) {
+           if(scoreLocal < 0 || scoreExterieur < 0 || match == null || dateMatch == null )
+                   return false;
+        
         match.setScore(scoreLocal, scoreExterieur);
         match.setDateMatch(dateMatch);
 
@@ -149,7 +152,7 @@ public class Championnat extends Nationale {
         for (int i = 0; i < equipe.size(); i++) {
             System.out.println((i + 1) + ") " + classement[i].getEquipe().getNomEquipe() + ": " + classement[i].getScore());
         }
-        System.out.println("");
+       return true;
     }
 
     public void echanger(int debut, int fin) {
