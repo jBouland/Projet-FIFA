@@ -18,12 +18,29 @@ public class Journee {
     Date debut;
     Date fin;
     ArrayList<Match> match_journee;
+    private boolean estModifiable;
 
+    
+    
+    
+    
     Journee(int j) {
         num_Journee = j;
         match_journee = new ArrayList<Match>();
+        this.estModifiable=true;
     }
 
+    public boolean getEstModifiable(){
+        
+        return estModifiable;
+        
+    }
+    
+    public void setEstModifiable(boolean estmodif){
+        this.estModifiable=estmodif;
+        
+    }
+    
     public void setNum_Journee(int num_Journee) {
         this.num_Journee = num_Journee;
     }

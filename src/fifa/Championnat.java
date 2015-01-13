@@ -16,6 +16,11 @@ public class Championnat extends Nationale {
     private Match[][] rencontres;
     private Position[] classement;
     private ArrayList<Journee> listeJournee;
+    
+    public ArrayList<Journee> getListeJournee(){
+        return this.listeJournee;
+        
+    }
 
     public Championnat() {
         super();

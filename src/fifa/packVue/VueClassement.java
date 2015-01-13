@@ -50,7 +50,7 @@ public class VueClassement extends JPanel {//pour ligue 1
         cont.gridy = 0;
 
         this.add(new JScrollPane(classement));
-        this.setPreferredSize(new Dimension(600, 400));
+        this.setPreferredSize(new Dimension(400, 400));
     }
 
     public void testTable() {
