@@ -50,6 +50,15 @@ public class Championnat extends Nationale {
         genererMatches();
     }
 
+    public Position getClassement(int i) {
+        if(i>=0 && i<equipe.size()){
+            return classement[i];
+        }
+        return null;
+    }
+    
+    
+
     private boolean genererMatches() {
         Collections.shuffle(this.equipe);
         //c'est ici qu'on mélange l'équipe.

@@ -52,6 +52,8 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
         CreationChampionnatTemp();
         creationComboChampionnat();
         creationComboJournee();
+        listeChampionnatJComboBox.addActionListener(this);
+        listeJournéeJComboBox.addActionListener(this);
         championnatActu=listeChampionnat.get(0);
         init();
 
@@ -163,7 +165,14 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-
+        if(ae.getSource()== listeChampionnatJComboBox){
+            for (Championnat champ : listeChampionnat) {
+                if(champ.getNomCompetition() == listeChampionnatJComboBox.getSelectedItem().toString()){
+                    vc.chargementClassement(champ);
+                    
+                }
+            }
+        }
     }
 
 }

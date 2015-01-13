@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class VueClassement extends JPanel {//pour ligue 1
 
     private JTable classement;
-    private String[] columnNames = {"#", "EQUIPES", "Points", "J", "G", "N", "P", "BM", "BE"};
+    private final String[] columnNames = {"#", "EQUIPES", "Points", "J", "G", "N", "P", "BM", "BE"};
     private Object row[][];
     private Championnat championnat;
 
@@ -32,12 +32,11 @@ public class VueClassement extends JPanel {//pour ligue 1
 
         if (championnat != null) {
             row = new Object[championnat.getEquipe().size()][9];
-        }else{
-               row = new Object[10][9];      
+        } else {
+            row = new Object[10][9];
         }
 
         classement = new JTable(row, columnNames);
-        JScrollPane scrollPane = new JScrollPane(classement);
         classement.setPreferredScrollableViewportSize(new Dimension(400, 400));
         classement.setEnabled(false);
         classement.getColumnModel().getColumn(1).setPreferredWidth(220);
@@ -49,34 +48,49 @@ public class VueClassement extends JPanel {//pour ligue 1
         cont.gridx = 0;
         cont.gridy = 0;
 
-        this.add(new JScrollPane(classement));
+        this.add(new JScrollPane(classement), cont);
         this.setPreferredSize(new Dimension(400, 400));
     }
 
-    public void testTable() {
-        row[0][0] = "2";
-        row[0][1] = "Bourg en bresse";
-        row[0][2] = "1";
-        row[0][3] = "0";
-        row[0][4] = "0";
-        row[0][5] = "1";
-        row[0][6] = "1";
-        row[0][7] = "1";
-        row[0][8] = "1";
-        /*
-         row[1][0] = "1";
-         row[1][1] = "Star Poulpe eat Disco Cookies";
-         row[1][2] = "1";
-         row[1][3] = "1";
-         row[1][4] = "0";
-         row[1][5] = "0";
-         */
+    private void affiche() {
+        this.removeAll();
+        classement.setPreferredScrollableViewportSize(new Dimension(400, 400));
+        classement.setEnabled(false);
+        classement.getColumnModel().getColumn(1).setPreferredWidth(220);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        classement.setDefaultRenderer(String.class, centerRenderer);
+        GridBagConstraints cont = new GridBagConstraints();
+        cont.fill = GridBagConstraints.BOTH;
+        cont.gridx = 0;
+        cont.gridy = 0;
+
+        this.add(new JScrollPane(classement), cont);
+        this.setPreferredSize(new Dimension(400, 400));
     }
 
-    public void chargementClassement() {// remplissage du tableaux
-        
-        
-        
+    public void chargementClassement(Championnat ct) {// remplissage du tableaux
+        if (ct != null) {
+            championnat = ct;
+            row = new Object[championnat.getEquipe().size()][9];
+            for (int i = 0; i < championnat.getEquipe().size(); i++) {
+                row[i][0] = Integer.toString(i);
+                row[i][1] = championnat.getClassement(i).getEquipe().getNomEquipe();
+                row[i][2] = championnat.getClassement(i).getScore();
+                row[i][3] = (championnat.getClassement(i).getNombreVictoire() + championnat.getClassement(i).getNombreNul() + championnat.getClassement(i).getNombreDefaite());
+                row[i][4] = championnat.getClassement(i).getNombreVictoire();
+                row[i][5] = championnat.getClassement(i).getNombreNul();
+                row[i][6] = championnat.getClassement(i).getNombreDefaite();
+                row[i][7] = championnat.getClassement(i).getButsMarques();
+                row[i][8] = championnat.getClassement(i).getButsEncaisses();
+
+            }
+
+            classement = new JTable(row, columnNames);
+            affiche();
+            this.updateUI();
+
+        }
     }
 
 }
