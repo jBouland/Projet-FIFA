@@ -49,4 +49,9 @@ public class Instance {
         }
 
     }
+    
+    public void creerCoupeEurope(int idCompetition, String nomCoupeEurope, int saison){
+        
+    }    
+    
 }

@@ -19,6 +19,7 @@ public class ChampionsLeague extends Europeenne {
 
     public ChampionsLeague(int idCompetition, String nomCoupeEurope, int saison, ArrayList<Equipe> equipe) {
         super(idCompetition, nomCoupeEurope, saison, equipe);
+        
         phase_poule = new ArrayList<>();
         if (equipe.size() == 32) {
             for (int i = 1; i < 9; i++) {
