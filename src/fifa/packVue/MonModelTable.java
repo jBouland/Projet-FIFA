@@ -18,10 +18,26 @@ public class MonModelTable extends AbstractTableModel {
     @Override
     public void setValueAt(Object o, int i, int i1) {
         if (isCellEditable(i, i1) == true) {
-           
-            super.setValueAt(o, i, i1); //To change body of generated methods, choose Tools | Templates.
-          
-        }
+
+            if (i1 == 1) {
+                liste.get(i).butEquipe1 = (String) o;
+                fireTableCellUpdated(i, i1);
+               int x= Integer.parseInt(liste.get(i).butEquipe1);
+                System.out.println(x);
+                journee.getMatch_journee().get(i).setScoreLocal(x);
+            }
+            if (i1==2){
+                
+                liste.get(i).butEquipe2 = (String) o;
+                fireTableCellUpdated(i, i1);
+                 int x= Integer.parseInt(liste.get(i).butEquipe1);
+                
+                journee.getMatch_journee().get(i).setScoreExterieur(x);
+            }
+            
+            
+
+           }
     }
 
     @Override
@@ -29,10 +45,12 @@ public class MonModelTable extends AbstractTableModel {
         if (journee.getEstModifiable() == false) {
             return false;
         } else {
-            if (i1 == 2|| i1==3 ) {
+            if (i1 == 1) {
                 return true;
             }
-            else {
+            if (i1 == 2) {
+                return true;
+            } else {
                 return false;
             }
 
@@ -64,8 +82,7 @@ public class MonModelTable extends AbstractTableModel {
                     j.getMatch_journee().get(i).getEquipeExterieure().getNomEquipe()));
 
         }
-        
-       
+
     }
 
     @Override
