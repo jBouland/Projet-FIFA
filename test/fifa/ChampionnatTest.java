@@ -30,8 +30,6 @@ public class ChampionnatTest {
     
     public ChampionnatTest() {
         
-       
-            
         fra = new Pays(4, "France");   
         fra.importEquipe();
         
@@ -77,6 +75,7 @@ public class ChampionnatTest {
         
        if( !chp.ajoutResultat(scoreLocal, scoreExterieur, match, dateMatch))
        fail("Le résultat n'a pas été ajouté. ");
+       
     }
     
     
