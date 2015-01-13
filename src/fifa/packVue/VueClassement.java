@@ -74,7 +74,7 @@ public class VueClassement extends JPanel {//pour ligue 1
             championnat = ct;
             row = new Object[championnat.getEquipe().size()][9];
             for (int i = 0; i < championnat.getEquipe().size(); i++) {
-                row[i][0] = Integer.toString(i);
+                row[i][0] = Integer.toString(i+1);
                 row[i][1] = championnat.getClassement(i).getEquipe().getNomEquipe();
                 row[i][2] = championnat.getClassement(i).getScore();
                 row[i][3] = (championnat.getClassement(i).getNombreVictoire() + championnat.getClassement(i).getNombreNul() + championnat.getClassement(i).getNombreDefaite());

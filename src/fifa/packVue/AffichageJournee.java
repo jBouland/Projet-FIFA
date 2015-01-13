@@ -62,27 +62,43 @@ public class AffichageJournee extends JPanel implements ActionListener {
         this.add(scroll,cont);
         
         cont.gridwidth=1;
-        cont.gridx=1;
-        cont.gridy=0;
-        this.add(JButton_GenererAleatoirement);
+        cont.gridx=0;
+        cont.gridy=1;
+        this.add(JButton_GenererAleatoirement,cont);
         
        
         
        
     }
     
-    public void loadTable(){
-       
+   
+    
+    public void chargementJournee (Championnat Championnat_, int jour){
+        this.removeAll();
         
+         champ = Championnat_;
+        journ = jour;
         
+        table = new JTable(new MonModelTable(champ.getListeJournee().get(journ)));
+        
+        JButton_GenererAleatoirement = new JButton("Génerer Aléatoirement les scores");        
+        JButton_ModifierScore = new JButton("Modifier ce match");
+        
+         this.setBorder(new TitledBorder("Journée "+journ));
+         
+         init();
+        
+        updateUI();
         
     }
-    
-    
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-    
+    if (ae.getSource()==JButton_GenererAleatoirement){
+        champ.genererResultat();
+        chargementJournee(champ, journ);
+        
+    }
     
     }
 

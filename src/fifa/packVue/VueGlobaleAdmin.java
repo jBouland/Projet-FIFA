@@ -104,6 +104,9 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
              
        cont.gridx=0;
        cont.gridy=0;
+       
+        vc.chargementClassement(championnatActu);
+        
        this.add(mainPanel,cont);
         this.pack();
 
@@ -159,9 +162,7 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
 
     }
 
-    public void affichageJlist() {
-
-    }
+    
 
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -172,6 +173,11 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
                     
                 }
             }
+        }else if(ae.getSource()==listeJournéeJComboBox){
+            aj.chargementJournee(championnatActu, listeJournéeJComboBox.getSelectedIndex()-1 );
+            
+            
+            
         }
     }
 
