@@ -7,6 +7,7 @@ package fifa;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Random;
 
 ///RAJOUTER LA CONDITION DES MEMES PAYS POUR LA CREATION DES POULES
@@ -19,7 +20,7 @@ public class ChampionsLeague extends Europeenne {
 
     public ChampionsLeague(int idCompetition, String nomCoupeEurope, int saison, ArrayList<Equipe> equipe) {
         super(idCompetition, nomCoupeEurope, saison, equipe);
-        
+
         phase_poule = new ArrayList<>();
         if (equipe.size() == 32) {
             for (int i = 1; i < 9; i++) {
@@ -161,6 +162,16 @@ public class ChampionsLeague extends Europeenne {
         }
     }
 
+    void genererDatesMatchesPoules() {
+        Calendrier c = new Calendrier(saison);
+        ArrayList<Date> dates;
+        c.CreationPouleChampionsLeague();
+        dates = c.getPouleschampionsleague();
+        for (Journee j : calendrier) {
+            j.affecterDatesPouleChampionsLeague(j.getNum_Journee(),dates);
+        }
+    }
+
     ////////////////////////////////////////////////////
     ///////// GESTION DE LA PHASE FINALE //////////////
     //////////////////////////////////////////////////
@@ -193,7 +204,7 @@ public class ChampionsLeague extends Europeenne {
         Tour tour_suivant = null;
         Tour tour_courant = null;
         int i;
-        for (i = 0; i < phase_finale.size()-1; i++) {
+        for (i = 0; i < phase_finale.size() - 1; i++) {
 
             tour_courant = phase_finale.get(i);
             tour_courant.simuler_tour();
@@ -306,7 +317,7 @@ public class ChampionsLeague extends Europeenne {
                     eq_qualifiees.remove(equipe1);
                     eq_qualifiees.remove(equipe2);
                 } catch (Exception ex) {
-                   System.out.println("pb a"+this.num_Journee);
+                    System.out.println("pb a" + this.num_Journee);
                 }
             }
 

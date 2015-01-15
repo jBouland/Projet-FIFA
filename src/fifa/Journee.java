@@ -20,27 +20,23 @@ public class Journee {
     ArrayList<Match> match_journee;
     private boolean estModifiable;
 
-    
-    
-    
-    
     Journee(int j) {
         num_Journee = j;
         match_journee = new ArrayList<Match>();
-        this.estModifiable=true;
+        this.estModifiable = true;
     }
 
-    public boolean getEstModifiable(){
-        
+    public boolean getEstModifiable() {
+
         return estModifiable;
-        
+
     }
-    
-    public void setEstModifiable(boolean estmodif){
-        this.estModifiable=estmodif;
-        
+
+    public void setEstModifiable(boolean estmodif) {
+        this.estModifiable = estmodif;
+
     }
-    
+
     public void setNum_Journee(int num_Journee) {
         this.num_Journee = num_Journee;
     }
@@ -113,11 +109,50 @@ public class Journee {
         }
         return retour;
     }
-    
-    void affiche(){
+
+    void affiche() {
         for (Match match_journee1 : match_journee) {
             System.out.println(match_journee1);
         }
+    }
+
+    void affecterDatesChampionnat(ArrayList<Date> dates) {
+        debut = dates.get(0);
+        fin = dates.get(2);
+        for (Match m : match_journee) {
+            m.setDateMatch(dates.get(1));
+        }
+        match_journee.get(0).setDateMatch(debut);
+        for (int i = match_journee.size() - 1; i > match_journee.size() - 4; i--) {
+            match_journee.get(i).setDateMatch(fin);
+        }
+        dates.remove(0);
+        dates.remove(0);
+        dates.remove(0);
+    }
+
+    void affecterDatesPouleChampionsLeague(int j, ArrayList<Date> dates) {
+        debut = dates.get(0);
+        fin = dates.get(1);
+        int i;
+        if (j % 2 == 0) {
+            for (i = 0; i < 8; i++) {
+                match_journee.get(i).setDateMatch(dates.get(0));
+            }
+            for (i = i; i < 16; i++) {
+                match_journee.get(i).setDateMatch(dates.get(1));
+            }
+        } else {
+            for (i = 0; i < 8; i++) {
+                match_journee.get(i).setDateMatch(dates.get(1));
+            }
+            for (i = i; i < 16; i++) {
+                match_journee.get(i).setDateMatch(dates.get(0));
+            }
+        }
+        dates.remove(0);
+        dates.remove(0);
+
     }
 
 }

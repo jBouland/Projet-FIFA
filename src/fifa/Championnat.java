@@ -30,6 +30,7 @@ public class Championnat extends Nationale {
         classement = new Position[this.equipe.size()];
         listeJournee = new ArrayList();
         genererMatches();
+        genererDatesMatches();
     }
 
     public Championnat(String nomCompetition, int saison, int idCompetition, ArrayList<Equipe> equipe) {
@@ -48,6 +49,7 @@ public class Championnat extends Nationale {
         }
 
         genererMatches();
+        genererDatesMatches();
     }
 
     private boolean genererMatches() {
@@ -199,6 +201,16 @@ public class Championnat extends Nationale {
             }
         }
 
+    }
+
+    private void genererDatesMatches() {
+        Calendrier c = new Calendrier(saison);
+        ArrayList<Date> dates;
+        c.CreationCoupeetChampionnat();
+        dates=c.getChampionnat();
+        for(Journee j : listeJournee){
+            j.affecterDatesChampionnat(dates);
+        }
     }
 
 }

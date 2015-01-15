@@ -45,7 +45,7 @@ public class Match {
 
     @Override
     public String toString() {
-        return "(Poule " + num_poule + ") " + equipeLocale.getNomEquipe() + " " + scoreLocal + " - " + scoreExterieur + " " + equipeExterieure.getNomEquipe();
+        return "(Poule " + num_poule + ") Date:" + dateMatch + " " + equipeLocale.getNomEquipe() + " " + scoreLocal + " - " + scoreExterieur + " " + equipeExterieure.getNomEquipe();
     }
 
     public void setDateMatch(Date dateMatch) {

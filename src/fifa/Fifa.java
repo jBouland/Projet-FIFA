@@ -7,6 +7,7 @@ package fifa;
 
 import fifa.packVue.VueGlobaleAdmin;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -18,10 +19,10 @@ public class Fifa {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       
+      
         Pays test = new Pays(1, "Allemagne");
         test.importEquipe();
-        Championnat ch = new Championnat("All", 1, 1, test.getEquipe());
+        Championnat ch = new Championnat("All", 2015, 1, test.getEquipe());
         ch.affiche();
         VueGlobaleAdmin fenetre = new VueGlobaleAdmin();
         fenetre.setVisible(true);
@@ -49,7 +50,7 @@ public class Fifa {
         pays.add(esp);
         pays.add(ang);
         
-        Championnat chp = new Championnat("test", 1, 1, fra.getEquipe());
+        Championnat chp = new Championnat("test", 2015, 1, fra.getEquipe());
         chp.affiche();
        
         ArrayList<Equipe> liste = new ArrayList<>();
@@ -68,6 +69,7 @@ public class Fifa {
         
         cl.creerPhasePoule();
         cl.simulerPhasePoule();
+        cl.genererDatesMatchesPoules();
         cl.afficherCalendrierPhasePoule();
         cl.afficherPhasePoule();
         
@@ -77,6 +79,18 @@ public class Fifa {
        
         /*test.importEquipe();
          test.afficheEquipe();*/
+        
+        /*Calendrier c = new Calendrier(2015);
+        ArrayList<Date> d = c.CreationCoupeetChampionnat();
+        
+        for(Date date_courante: d){
+            
+           System.out.println( date_courante.toString());
+            
+        }*/
+        
+        
+        
         
     }
     

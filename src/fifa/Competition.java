@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public abstract class Competition {
 
-    private String nomCompetition;
-    private int saison;
-    private int idCompetition;
+    String nomCompetition;
+    int saison;
+    int idCompetition;
 
     public ArrayList<Equipe> equipe;
     public ArrayList<Match> match;
