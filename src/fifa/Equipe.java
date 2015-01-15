@@ -15,14 +15,14 @@ public class Equipe {
     private int idChampionnat;
     private int idCoupe1;
     private int idCoupe2;
-        private int idCoupeEurope;
+    private int idCoupeEurope;
 
     public Equipe(int idEquipe, String nomEquipe) {
         this.idEquipe = idEquipe;
         this.nomEquipe = nomEquipe;
     }
-    
-     public Equipe(int idPays, int idEquipe, String nomEquipe) {
+
+    public Equipe(int idPays, int idEquipe, String nomEquipe) {
         this.idPays = idPays;
         this.idEquipe = idEquipe;
         this.nomEquipe = nomEquipe;
