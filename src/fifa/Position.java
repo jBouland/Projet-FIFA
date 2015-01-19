@@ -44,6 +44,18 @@ public class Position {
     public int getPositionEquipe() {
         return positionEquipe;
     }
+    
+    public boolean razPosition() {
+
+        this.positionEquipe = 0;
+        this.nombreVictoire = 0;
+        this.nombreDefaite = 0;
+        this.nombreNul = 0;
+        this.butsMarques = 0;
+        this.butsEncaisses = 0;
+        
+        return true;
+    }
 
     public void setPositionEquipe(int positionEquipe) {
         this.positionEquipe = positionEquipe;

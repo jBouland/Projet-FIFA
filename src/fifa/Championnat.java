@@ -61,7 +61,13 @@ public class Championnat extends Nationale {
         return null;
     }
     
-    
+    public boolean razClassement(){
+        
+        for(int i=0; i<equipe.size(); i++){
+            classement[i].razPosition();
+        }
+        return true;
+    }
 
     private boolean genererMatches() {
         Collections.shuffle(this.equipe);
