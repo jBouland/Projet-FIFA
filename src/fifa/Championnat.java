@@ -136,7 +136,7 @@ public class Championnat extends Nationale {
     }
 
     public boolean ajoutResultat(int scoreLocal, int scoreExterieur, Match match, Date dateMatch) {
-           if(scoreLocal < 0 || scoreExterieur < 0 || match == null || dateMatch == null )
+           if(scoreLocal < 0 || scoreExterieur < 0 || match == null  )
                    return false;
         
         match.setScore(scoreLocal, scoreExterieur);
