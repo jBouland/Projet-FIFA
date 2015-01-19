@@ -8,7 +8,7 @@ package fifa;
 import java.util.ArrayList;
 
 
-public class Nationale extends Competition {
+public class Nationale extends Competition   {
 
     public Nationale() {
         super();
