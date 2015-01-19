@@ -8,6 +8,8 @@ package fifa;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 
 public class Championnat extends Nationale {
 
@@ -140,7 +142,7 @@ public class Championnat extends Nationale {
                    return false;
         
         match.setScore(scoreLocal, scoreExterieur);
-        match.setDateMatch(dateMatch);
+       // match.setDateMatch(dateMatch);
 
         for (int i = 0; i < equipe.size(); i++) {
             if (match.getEquipeLocale().getIdEquipe() == classement[i].getEquipe().getIdEquipe()) {
@@ -154,6 +156,8 @@ public class Championnat extends Nationale {
         for (int i = 0; i < equipe.size(); i++) {
             System.out.println((i + 1) + ") " + classement[i].getEquipe().getNomEquipe() + ": " + classement[i].getScore());
         }
+        setChanged();
+        notifyObservers();
        return true;
     }
 
@@ -224,5 +228,7 @@ public class Championnat extends Nationale {
             j.affecterDatesChampionnat(dates);
         }
     }
+
+    
 
 }

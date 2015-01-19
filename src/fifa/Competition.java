@@ -6,8 +6,9 @@
 package fifa;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public abstract class Competition {
+public abstract class Competition extends Observable {
 
     String nomCompetition;
     int saison;
