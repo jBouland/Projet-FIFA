@@ -69,6 +69,15 @@ public class Journee {
         return match_journee;
     }
 
+    public void simulerMatchJournee() {
+
+        for (Match match_courant : match_journee) {
+
+            match_courant.simulerMatch();
+        }
+
+    }
+
     void afficheMatch() {
         for (int i = 0; i < match_journee.size(); i++) {
             System.out.println(match_journee.get(i).toString());
