@@ -109,7 +109,9 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
        cont.gridy=0;
        
         vc.chargementClassement(championnatActu);
-        
+       
+        championnatActu.addObserver(vc);
+        championnatActu.addObserver(aj);
        this.add(mainPanel,cont);
         this.pack();
 

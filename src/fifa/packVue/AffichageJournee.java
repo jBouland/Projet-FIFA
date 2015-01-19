@@ -12,6 +12,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,7 +24,7 @@ import javax.swing.border.TitledBorder;
  *
  * @author Flo
  */
-public class AffichageJournee extends JPanel implements ActionListener {
+public class AffichageJournee extends JPanel implements ActionListener, Observer {
 
     private JTable table;
 
@@ -92,10 +94,16 @@ public class AffichageJournee extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == JButton_GenererAleatoirementJournees) {
             champ.genererResultat();
-            init();
+           
 
         }
 
+    }
+
+    @Override
+    public void update(Observable o, Object o1) {
+        init();
+       
     }
 
 }

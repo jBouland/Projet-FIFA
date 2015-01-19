@@ -8,6 +8,8 @@ package fifa.packVue;
 import fifa.Championnat;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,7 +21,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Flo
  */
-public class VueClassement extends JPanel {//pour ligue 1
+public class VueClassement extends JPanel implements Observer{//pour ligue 1
 
     private JTable classement;
     private final String[] columnNames = {"#", "EQUIPES", "Points", "J", "G", "N", "P", "BM", "BE"};
@@ -91,6 +93,11 @@ public class VueClassement extends JPanel {//pour ligue 1
             this.updateUI();
 
         }
+    }
+
+    @Override
+    public void update(Observable o, Object o1) {
+        chargementClassement(championnat);
     }
 
 }
