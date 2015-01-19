@@ -4,6 +4,7 @@
  */
 package fifa.packVue;
 
+import fifa.Championnat;
 import fifa.Journee;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -24,7 +25,9 @@ public class MonModelTable extends AbstractTableModel {
                 fireTableCellUpdated(i, i1);
                int x= Integer.parseInt(liste.get(i).butEquipe1);
                 System.out.println(x);
-                journee.getMatch_journee().get(i).setScoreLocal(x);
+                 c.ajoutResultat(x,journee.getMatch_journee().get(i).getScoreExterieur(),journee.getMatch_journee().get(i),null);
+              
+                
             }
             if (i1==2){
                 
@@ -32,7 +35,8 @@ public class MonModelTable extends AbstractTableModel {
                 fireTableCellUpdated(i, i1);
                  int x= Integer.parseInt(liste.get(i).butEquipe1);
                 
-                journee.getMatch_journee().get(i).setScoreExterieur(x);
+                 c.ajoutResultat(journee.getMatch_journee().get(i).getScoreLocal(),x,journee.getMatch_journee().get(i),null);
+              
             }
             
             
@@ -72,9 +76,12 @@ public class MonModelTable extends AbstractTableModel {
     private String[] entetes = {"Equipe local", "But", "But", "Equipe2"};
     private ArrayList<Ligne> liste = new ArrayList();
     private Journee journee;
+    private Championnat c;
 
-    public MonModelTable(Journee j) {
+    
+    public MonModelTable(Journee j , Championnat c) {
         journee = j;
+        this.c=c;
         for (int i = 0; i < j.getMatch_journee().size(); i++) {
             liste.add(new Ligne(j.getMatch_journee().get(i).getEquipeLocale().getNomEquipe(),
                     Integer.toString(j.getMatch_journee().get(i).getScoreLocal()),

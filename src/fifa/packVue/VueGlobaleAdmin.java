@@ -40,21 +40,24 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
     private JComboBox listeChampionnatJComboBox;
     private JComboBox listeJournéeJComboBox;
 
-    private int journeSelect = 1;
+    private int journeSelect = 0;
     private Championnat championnatActu;
 
     public VueGlobaleAdmin() {
         listeChampionnat = new ArrayList<Championnat>();
+        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(1280, 720));
 
         afficheFond();
         CreationChampionnatTemp();
+        championnatActu=listeChampionnat.get(0);
         creationComboChampionnat();
         creationComboJournee();
+        
         listeChampionnatJComboBox.addActionListener(this);
         listeJournéeJComboBox.addActionListener(this);
-        championnatActu=listeChampionnat.get(0);
+        
         init();
 
     }
@@ -146,7 +149,7 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
 
     public void creationComboJournee() {
         listeJournéeJComboBox = new JComboBox();
-        for (int i = 1; i < 40; i++) {
+        for (int i = 1; i < (championnatActu.getEquipe().size()-1)*2+1; i++) {
             listeJournéeJComboBox.addItem(i);
         }
     }
@@ -174,8 +177,10 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
                 }
             }
         }else if(ae.getSource()==listeJournéeJComboBox){
-            aj.chargementJournee(championnatActu, listeJournéeJComboBox.getSelectedIndex()-1 );
-            
+           aj.setJourn(listeJournéeJComboBox.getSelectedIndex());
+            aj.init();
+          
+         
             
             
         }
