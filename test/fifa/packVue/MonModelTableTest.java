@@ -3,171 +3,140 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package fifa.packVue;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import fifa.Championnat;
+import fifa.Journee;
+import fifa.Pays;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author Joris
+ *
  */
 public class MonModelTableTest {
-    
-    public MonModelTableTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
-    /**
-     * Test of setValueAt method, of class MonModelTable.
-     */
-    @Test
-    public void testSetValueAt() {
-        System.out.println("setValueAt");
-        Object o = null;
-        int i = 0;
-        int i1 = 0;
-        MonModelTable instance = null;
-        instance.setValueAt(o, i, i1);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public MonModelTableTest() {
     }
 
     /**
      * Test of testValeur method, of class MonModelTable.
      */
     @Test
-    public void testTestValeur() {
-        System.out.println("testValeur");
-        String val = "";
-        MonModelTable instance = null;
-        boolean expResult = false;
-        boolean result = instance.testValeur(val);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testInt() {
+        Pays test = new Pays(1, "Allemagne");
+        test.importEquipe();
+        Championnat ch = new Championnat("All", 2015, 1, test.getEquipe());
+
+        Journee j = new Journee(1);
+        
+        String intTest = "5";
+        MonModelTable instance = new MonModelTable(j, ch);
+
+        if (!instance.testValeur(intTest)) {
+            fail("Le paramètre est un entier positif.");
+        }
     }
 
-    /**
-     * Test of isNumeric method, of class MonModelTable.
-     */
     @Test
-    public void testIsNumeric() {
-        System.out.println("isNumeric");
-        String str = "";
-        boolean expResult = false;
-        boolean result = MonModelTable.isNumeric(str);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testDouble() {
+        Pays test = new Pays(1, "Allemagne");
+        test.importEquipe();
+        Championnat ch = new Championnat("All", 2015, 1, test.getEquipe());
+
+        Journee j = new Journee(1);
+        MonModelTable instance = new MonModelTable(j, ch);
+        String doubleTest = "5.3";
+        if (!instance.testValeur(doubleTest)) {
+            fail("Le paramètre est un double.");
+        }
+
     }
 
-    /**
-     * Test of isCellEditable method, of class MonModelTable.
-     */
     @Test
-    public void testIsCellEditable() {
-        System.out.println("isCellEditable");
-        int i = 0;
-        int i1 = 0;
-        MonModelTable instance = null;
-        boolean expResult = false;
-        boolean result = instance.isCellEditable(i, i1);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testString() {
+        Pays test = new Pays(1, "Allemagne");
+        test.importEquipe();
+        Championnat ch = new Championnat("All", 2015, 1, test.getEquipe());
+
+        Journee j = new Journee(1);
+        MonModelTable instance = new MonModelTable(j, ch);
+        String stringTest = "Bonjour je suis un test";
+        if (!instance.testValeur(stringTest)) {
+            fail("Le paramètre est une chaîne de caractère");
+        }
     }
 
-    /**
-     * Test of getValueAt method, of class MonModelTable.
-     */
     @Test
-    public void testGetValueAt() {
-        System.out.println("getValueAt");
-        int row = 0;
-        int column = 0;
-        MonModelTable instance = null;
-        Object expResult = null;
-        Object result = instance.getValueAt(row, column);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testNegatif() {
+        Pays test = new Pays(1, "Allemagne");
+        test.importEquipe();
+        Championnat ch = new Championnat("All", 2015, 1, test.getEquipe());
+
+        Journee j = new Journee(1);
+        MonModelTable instance = new MonModelTable(j, ch);
+        String negatifTest = "-5";
+        if (!instance.testValeur(negatifTest)) {
+            fail("Le paramètre est un entier négatif.");
+        }
     }
 
-    /**
-     * Test of getRowCount method, of class MonModelTable.
-     */
     @Test
-    public void testGetRowCount() {
-        System.out.println("getRowCount");
-        MonModelTable instance = null;
-        int expResult = 0;
-        int result = instance.getRowCount();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testLettres() {
+        Pays test = new Pays(1, "Allemagne");
+        test.importEquipe();
+        Championnat ch = new Championnat("All", 2015, 1, test.getEquipe());
+
+        Journee j = new Journee(1);
+        MonModelTable instance = new MonModelTable(j, ch);
+        String lettresTest = "DEASGHJT";
+        if (!instance.testValeur(lettresTest)) {
+            fail("Le paramètre est uniquement composé de lettres.");
+        }
     }
 
-    /**
-     * Test of getColumnCount method, of class MonModelTable.
-     */
     @Test
-    public void testGetColumnCount() {
-        System.out.println("getColumnCount");
-        MonModelTable instance = null;
-        int expResult = 0;
-        int result = instance.getColumnCount();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testLettresEtChiffres() {
+        Pays test = new Pays(1, "Allemagne");
+        test.importEquipe();
+        Championnat ch = new Championnat("All", 2015, 1, test.getEquipe());
+
+        Journee j = new Journee(1);
+        MonModelTable instance = new MonModelTable(j, ch);
+        String lettresEtChiffres = "12GHt123";
+        if (!instance.testValeur(lettresEtChiffres)) {
+            fail("Le paramètre est composé de lettres et de chiffres.");
+        }
     }
 
-    /**
-     * Test of getColumnName method, of class MonModelTable.
-     */
     @Test
-    public void testGetColumnName() {
-        System.out.println("getColumnName");
-        int column = 0;
-        MonModelTable instance = null;
-        String expResult = "";
-        String result = instance.getColumnName(column);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testchampVide() {
+        Pays test = new Pays(1, "Allemagne");
+        test.importEquipe();
+        Championnat ch = new Championnat("All", 2015, 1, test.getEquipe());
+
+        Journee j = new Journee(1);
+        MonModelTable instance = new MonModelTable(j, ch);
+        String champVide = "";
+
+        if (!instance.testValeur(champVide)) {
+            fail("Le paramètre est un champ vide.");
+        }
     }
 
-    /**
-     * Test of removeLigne method, of class MonModelTable.
-     */
     @Test
-    public void testRemoveLigne() {
-        System.out.println("removeLigne");
-        int index = 0;
-        MonModelTable instance = null;
-        instance.removeLigne(index);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testValSup1000() {
+        Pays test = new Pays(1, "Allemagne");
+        test.importEquipe();
+        Championnat ch = new Championnat("All", 2015, 1, test.getEquipe());
+
+        Journee j = new Journee(1);
+        MonModelTable instance = new MonModelTable(j, ch);
+        String chiffreSup1000 = "2500";
+        if (!instance.testValeur(chiffreSup1000)) {
+            fail("Le paramètre est un entier supérieur à 1000.");
+        }
     }
-    
+
 }
