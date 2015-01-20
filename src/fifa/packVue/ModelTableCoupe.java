@@ -5,6 +5,7 @@
 package fifa.packVue;
 
 import fifa.Championnat;
+import fifa.ChampionsLeague;
 import fifa.Journee;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -14,11 +15,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author brice.effantin
  */
-public class MonModelTable extends AbstractTableModel {
+public class ModelTableCoupe extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object o, int i, int i1) {
-        if (isCellEditable(i, i1) == true) {
+        /*if (isCellEditable(i, i1) == true) {
 
             if (i1 == 1) {
                 liste.get(i).butEquipe1 = (String) o;
@@ -38,10 +39,10 @@ public class MonModelTable extends AbstractTableModel {
                  c.ajoutResultat(journee.getMatch_journee().get(i).getScoreLocal(),x,journee.getMatch_journee().get(i),null);
               
             }
-            
+           
             
 
-           }
+           }*/
     }
 
     @Override
@@ -77,10 +78,10 @@ public class MonModelTable extends AbstractTableModel {
     private String[] entetes = {"Equipe local", "But", "But", "Equipe2","Date"};
     private ArrayList<Ligne> liste = new ArrayList();
     private Journee journee;
-    private Championnat c;
+    private  ChampionsLeague c;
 
     
-    public MonModelTable(Journee j , Championnat c) {
+    public ModelTableCoupe(Journee j , ChampionsLeague c) {
         journee = j;
         this.c=c;
         for (int i = 0; i < j.getMatch_journee().size(); i++) {
