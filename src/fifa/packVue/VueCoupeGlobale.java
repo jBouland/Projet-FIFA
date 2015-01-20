@@ -6,6 +6,7 @@
 package fifa.packVue;
 
 import fifa.ChampionsLeague;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -48,7 +49,7 @@ public final class VueCoupeGlobale extends JFrame implements ActionListener {
     private JButton passageChamp;
 
     public VueCoupeGlobale(ArrayList<ChampionsLeague> liste) { // il faut que tu rajoutes ou prendre les coupe
-
+        this.setTitle("Champions League");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(1280, 720));
 
@@ -141,7 +142,7 @@ public final class VueCoupeGlobale extends JFrame implements ActionListener {
         this.setContentPane(new JPanel() {
 
             public void paintComponent(Graphics g) {
-                g.drawImage((new ImageIcon("src/Ressources/fifa.jpeg")).getImage(), 0, 0, null);
+                g.drawImage((new ImageIcon("src/Ressources/cl.jpeg")).getImage(), 0, 0, 1280,720 , null);
             }
 
         });

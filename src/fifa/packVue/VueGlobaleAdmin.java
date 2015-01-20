@@ -52,7 +52,7 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
     public VueGlobaleAdmin(ArrayList<Championnat> liste, VueCoupeGlobale fenetre) {
         this.listeChampionnat = liste;
         this.fenetre = fenetre;
-
+        this.setTitle("Championnats");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(1280, 720));
 

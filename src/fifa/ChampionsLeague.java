@@ -99,7 +99,7 @@ public class ChampionsLeague extends Europeenne {
         for (int i = 0; i < phase_poule.size(); i++) { // pour chaque poule
                 /* Prend les matchs dispo*/
             matchspossibles = this.matchPossiblePoule(phase_poule.get(i).getEquipes());
-            matchsdispo = new ArrayList<Boolean>();
+            matchsdispo = new ArrayList<>();
             for (int a = 0; a < nbjournee * (phase_poule.get(i).getEquipes().size() / 2); a++) {
                 matchsdispo.add(Boolean.TRUE);
             }
