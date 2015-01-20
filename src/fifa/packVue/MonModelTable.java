@@ -8,48 +8,76 @@ import fifa.Championnat;
 import fifa.Journee;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author brice.effantin
+ *
  */
 public class MonModelTable extends AbstractTableModel {
 
+    private String[] entetes = {"Equipe local", "But", "But", "Equipe2", "Date"};
+    private ArrayList<Ligne> liste = new ArrayList();
+    private Journee journee;
+    private Championnat c;
+
+    public MonModelTable(Journee j, Championnat c) {
+        journee = j;
+        this.c = c;
+        for (int i = 0; i < j.getMatch_journee().size(); i++) {
+            liste.add(new Ligne(
+                    j.getMatch_journee().get(i).getEquipeLocale().getNomEquipe(),
+                    Integer.toString(j.getMatch_journee().get(i).getScoreLocal()),
+                    Integer.toString(j.getMatch_journee().get(i).getScoreExterieur()),
+                    j.getMatch_journee().get(i).getEquipeExterieure().getNomEquipe(),
+                    j.getMatch_journee().get(i).getDateMatch().toString())
+            );
+
+        }
+
+    }
+
     @Override
     public void setValueAt(Object o, int i, int i1) {
-        if (isCellEditable(i, i1) == true) {
 
-            if (testValeur((String)o )==true) {
+        if (isCellEditable(i, i1) == true) {
+            if (testValeur((String) o) == true) {
                 if (i1 == 1) {
                     liste.get(i).butEquipe1 = (String) o;
                     fireTableCellUpdated(i, i1);
                     int x = Integer.parseInt(liste.get(i).butEquipe1);
-                    System.out.println(x);
+
                     c.ajoutResultat(x, journee.getMatch_journee().get(i).getScoreExterieur(), journee.getMatch_journee().get(i), null);
 
                 }
-            
-            if (i1 == 2) {
 
-                liste.get(i).butEquipe2 = (String) o;
-                fireTableCellUpdated(i, i1);
-                int x = Integer.parseInt(liste.get(i).butEquipe2);
-                c.ajoutResultat(journee.getMatch_journee().get(i).getScoreLocal(), x, journee.getMatch_journee().get(i), null);
+                if (i1 == 2) {
 
-            }
+                    liste.get(i).butEquipe2 = (String) o;
+                    fireTableCellUpdated(i, i1);
+                    int x = Integer.parseInt(liste.get(i).butEquipe2);
+                           c.ajoutResultat(journee.getMatch_journee().get(i).getScoreLocal(), x, journee.getMatch_journee().get(i), null);
+
+                }
             }
         }
     }
 
+
+
     public boolean testValeur(String val) {
 
+        if (val.contains(".")){
+            return false;
+        }
+        if (val.contains(",")){
+            return false;
+        }
         if (isNumeric(val) == false) {
             return false;
         }
-            if (Integer.parseInt(val) < 0) {
+        if (Integer.parseInt(val) < 0) {
             return false;
-        } 
+        }
         if (Integer.parseInt(val) > 1000) {
             return false;
         } else {
@@ -95,26 +123,6 @@ public class MonModelTable extends AbstractTableModel {
             this.date = date;
 
         }
-    }
-    private String[] entetes = {"Equipe local", "But", "But", "Equipe2", "Date"};
-    private ArrayList<Ligne> liste = new ArrayList();
-    private Journee journee;
-    private Championnat c;
-
-    public MonModelTable(Journee j, Championnat c) {
-        journee = j;
-        this.c = c;
-        for (int i = 0; i < j.getMatch_journee().size(); i++) {
-            liste.add(new Ligne(
-                    j.getMatch_journee().get(i).getEquipeLocale().getNomEquipe(),
-                    Integer.toString(j.getMatch_journee().get(i).getScoreLocal()),
-                    Integer.toString(j.getMatch_journee().get(i).getScoreExterieur()),
-                    j.getMatch_journee().get(i).getEquipeExterieure().getNomEquipe(),
-                    j.getMatch_journee().get(i).getDateMatch().toString())
-            );
-
-        }
-
     }
 
     @Override

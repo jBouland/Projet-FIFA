@@ -29,7 +29,7 @@ public class Position {
         this.butsMarques = 0;
         this.butsEncaisses = 0;
     }
-    
+
     public Position(Equipe equipe, int posi_depart) {
         this.equipe = equipe;
         this.positionEquipe = posi_depart;
@@ -38,13 +38,13 @@ public class Position {
         this.nombreNul = 0;
         this.butsMarques = 0;
         this.butsEncaisses = 0;
-        this.score=0;
+        this.score = 0;
     }
 
     public int getPositionEquipe() {
         return positionEquipe;
     }
-    
+
     public boolean razPosition() {
 
         this.positionEquipe = 0;
@@ -53,8 +53,8 @@ public class Position {
         this.nombreNul = 0;
         this.butsMarques = 0;
         this.butsEncaisses = 0;
-        this.score=0;
-        
+        this.score = 0;
+
         return true;
     }
 
@@ -127,4 +127,5 @@ public class Position {
             score++;
         }
     }
+    
 }

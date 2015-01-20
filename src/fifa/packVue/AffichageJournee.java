@@ -27,8 +27,8 @@ import javax.swing.border.TitledBorder;
 public class AffichageJournee extends JPanel implements ActionListener, Observer {
 
     private JTable table;
-
-    private JButton genererTout;
+    private MonModelTable modeleTable;
+    private JButton genererTout, validerTout;
     private JButton genererJournee;
     private Championnat champ;
     private int journ;
@@ -37,13 +37,15 @@ public class AffichageJournee extends JPanel implements ActionListener, Observer
 
         champ = championnat;
         journ = jour;
-
-        table = new JTable(new MonModelTable(champ.getListeJournee().get(journ) ,champ));
+        modeleTable = new MonModelTable(champ.getListeJournee().get(journ), champ);
+        table = new JTable(modeleTable);
 
         genererTout = new JButton("Génerer Aléatoirement tous les scores");
         genererJournee = new JButton("Génerer Aléatoirement les scores de la journée");
         genererTout.addActionListener(this);
+        validerTout = new JButton("Valider la journée");
         genererJournee.addActionListener(this);
+        validerTout.addActionListener(this);
         int z = journ + 1;
         this.setBorder(new TitledBorder("Journée " + z));
 
@@ -52,10 +54,10 @@ public class AffichageJournee extends JPanel implements ActionListener, Observer
 
     public void init() {
         removeAll();
-        table = new JTable(new MonModelTable(champ.getListeJournee().get(journ),champ));
+        table = new JTable(new MonModelTable(champ.getListeJournee().get(journ), champ));
         int z = journ + 1;
         this.setBorder(new TitledBorder("Journée " + z));
-        
+
         JScrollPane scroll = new JScrollPane(table);
         scroll.setPreferredSize(new Dimension(450, 167));
 
@@ -70,16 +72,18 @@ public class AffichageJournee extends JPanel implements ActionListener, Observer
         this.add(scroll, cont);
         cont.insets = new Insets(10, 0, 0, 0);
         cont.gridwidth = 1;
+
         cont.gridx = 0;
         cont.gridy = 1;
+        this.add(validerTout, cont);
+        cont.gridy = 2;
         this.add(genererTout, cont);
         cont.insets = new Insets(10, 0, 0, 0);
         cont.gridx = 0;
-        cont.gridy = 2;
+        cont.gridy = 3;
 
         this.add(genererJournee, cont);
 
-        
         updateUI();
     }
 
@@ -96,18 +100,30 @@ public class AffichageJournee extends JPanel implements ActionListener, Observer
         if (ae.getSource() == genererTout) {
             champ.razClassement();
             champ.genererResultat();
-        } else if(ae.getSource() == genererJournee){
+        } else if (ae.getSource() == genererJournee) {
             champ.genererResultat(journ);
 
             init();
-        }
+        }/* else if (ae.getSource() == validerTout) {
+
+            int local;
+            int exter;
+
+            for (int i = 0; i < table.getRowCount(); i++) { 
+                local = Integer.parseInt(table.getValueAt(i, 1).toString());
+                exter = Integer.parseInt(table.getValueAt(i, 2).toString());
+                 champ.ajoutResultat(local, exter, champ.getListeJournee().get(journ).getMatch_journee().get(i), null);
+                
+            }
+
+        }*/
 
     }
 
     @Override
     public void update(Observable o, Object o1) {
         init();
-       
+
     }
 
 }

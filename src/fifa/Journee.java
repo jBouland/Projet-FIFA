@@ -20,7 +20,7 @@ public class Journee {
     ArrayList<Match> match_journee;
     private boolean estModifiable;
 
-    Journee(int j) {
+    public Journee(int j) {
         num_Journee = j;
         match_journee = new ArrayList<Match>();
         this.estModifiable = true;
