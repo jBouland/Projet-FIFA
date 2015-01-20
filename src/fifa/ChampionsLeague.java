@@ -517,30 +517,32 @@ public class ChampionsLeague extends Europeenne {
                 total_but_equipeB = +match_aller.getScoreExterieur() + match_retour.getScoreLocal();
                 tot_ext_equipeB = +match_retour.getScoreLocal();
 
-                if (total_but_equipeA == total_but_equipeB) {
+                if (total_but_equipeA == total_but_equipeB) { // Si les deux équipes sont à égalité
                     if (tot_ext_equipeA == tot_ext_equipeB) {
                         list_retour.add(match_aller.getEquipeLocale());
+                        break;
                     }
-
                     if (tot_ext_equipeA > tot_ext_equipeB) {
                         list_retour.add(match_aller.getEquipeLocale());
+                        break;
                     }
                     if (tot_ext_equipeA < tot_ext_equipeB) {
                         list_retour.add(match_aller.getEquipeExterieure());
+                        break;
                     }
-
                 } else {
+                    if (total_but_equipeA == total_but_equipeB) {
+                        list_retour.add(match_aller.getEquipeLocale());
+                        break;
+                    }
                     if (total_but_equipeA > total_but_equipeB) {
                         list_retour.add(match_aller.getEquipeLocale());
+                        break;
                     }
                     if (total_but_equipeA < total_but_equipeB) {
                         list_retour.add(match_aller.getEquipeExterieure());
+                        break;
                     }
-
-                    if (total_but_equipeA == total_but_equipeB) {
-                        list_retour.add(match_aller.getEquipeLocale());
-                    }
-
                 }
             }
             return list_retour;

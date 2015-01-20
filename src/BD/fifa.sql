@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 06 Janvier 2015 à 08:58
--- Version du serveur :  5.6.21
--- Version de PHP :  5.6.3
+-- Généré le :  Mar 20 Janvier 2015 à 23:35
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,10 +27,54 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `arbitre` (
+  `idArbitre` int(11) NOT NULL AUTO_INCREMENT,
+  `nomArbitre` text NOT NULL,
   `idPays` int(11) NOT NULL,
-`idArbitre` int(11) NOT NULL,
-  `nomArbitre` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`idArbitre`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `championnat`
+--
+
+CREATE TABLE IF NOT EXISTS `championnat` (
+  `idCompetition` int(11) NOT NULL AUTO_INCREMENT,
+  `idPays` int(11) NOT NULL,
+  `nomChampionnat` text NOT NULL,
+  `saison` int(11) NOT NULL,
+  `typeChampionnat` int(11) NOT NULL,
+  PRIMARY KEY (`idCompetition`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `coupe`
+--
+
+CREATE TABLE IF NOT EXISTS `coupe` (
+  `idCompetition` int(11) NOT NULL AUTO_INCREMENT,
+  `idPays` int(11) NOT NULL,
+  `nomCoupe` text NOT NULL,
+  `typeCoupe` int(11) NOT NULL,
+  `saison` int(11) NOT NULL,
+  PRIMARY KEY (`idCompetition`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `coupeeurope`
+--
+
+CREATE TABLE IF NOT EXISTS `coupeeurope` (
+  `idCompetition` int(11) NOT NULL AUTO_INCREMENT,
+  `nomCoupeEurope` text NOT NULL,
+  `saison` int(11) NOT NULL,
+  PRIMARY KEY (`idCompetition`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -39,109 +83,145 @@ CREATE TABLE IF NOT EXISTS `arbitre` (
 --
 
 CREATE TABLE IF NOT EXISTS `equipe` (
+  `idEquipe` int(11) NOT NULL AUTO_INCREMENT,
   `idPays` int(11) NOT NULL,
-`idEquipe` int(11) NOT NULL,
   `nomEquipe` text NOT NULL,
-  `classementSaisonPrecedente` int(11) NOT NULL,
-  `vainqueurCoupe` tinyint(1) NOT NULL,
-  `ligue` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=latin1;
+  `classementAnneePrecedente` int(11) DEFAULT NULL,
+  `vainqueurCoupe` int(11) DEFAULT NULL,
+  `idChampionnat` int(11) NOT NULL,
+  `idCoupe1` int(11) DEFAULT NULL,
+  `idCoupe2` int(11) DEFAULT NULL,
+  `idCoupeEurope` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idEquipe`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=95 ;
 
 --
 -- Contenu de la table `equipe`
 --
 
-INSERT INTO `equipe` (`idPays`, `idEquipe`, `nomEquipe`, `classementSaisonPrecedente`, `vainqueurCoupe`, `ligue`) VALUES
-(4, 1, 'Paris', 1, 1, 1),
-(4, 2, 'Monaco', 2, 0, 1),
-(4, 3, 'Lille', 3, 0, 1),
-(4, 4, 'Saint-Etienne', 4, 0, 1),
-(4, 5, 'Lyon', 5, 0, 1),
-(4, 6, 'Marseille', 6, 0, 1),
-(4, 7, 'Bordeaux', 7, 0, 1),
-(4, 8, 'Lorient', 8, 0, 1),
-(4, 9, 'Toulouse', 9, 0, 1),
-(4, 10, 'Bastia', 10, 0, 1),
-(4, 11, 'Reims', 11, 0, 1),
-(4, 12, 'Rennes', 12, 0, 1),
-(4, 13, 'Nantes', 13, 0, 1),
-(4, 14, 'Evian', 14, 0, 1),
-(4, 15, 'Montpellier', 15, 0, 1),
-(4, 16, 'Guingamp', 16, 1, 1),
-(4, 17, 'Nice', 17, 0, 1),
-(4, 18, 'Lens', 0, 0, 1),
-(4, 19, 'Caen', 0, 0, 1),
-(4, 20, 'Metz', 0, 0, 1),
-(8, 23, 'Manchester City', 1, 0, 1),
-(8, 24, 'Liverpool', 2, 0, 1),
-(8, 25, 'Chelsea', 3, 0, 1),
-(8, 26, 'Arsenal', 4, 0, 1),
-(8, 27, 'Everton', 5, 0, 1),
-(8, 28, 'Tottenham', 6, 0, 1),
-(8, 29, 'Manchester United', 7, 0, 1),
-(8, 30, 'Southampton', 8, 0, 1),
-(8, 31, 'Stoke City', 9, 0, 1),
-(8, 32, 'Newcastle', 10, 0, 1),
-(8, 33, 'Crystal Palace', 11, 0, 1),
-(8, 34, 'Swansea', 12, 0, 1),
-(8, 35, 'West Ham', 13, 0, 1),
-(8, 36, 'Sunderland', 14, 0, 1),
-(8, 37, 'Aston Villa', 15, 0, 1),
-(8, 38, 'Hull City', 16, 0, 1),
-(8, 39, 'West Bromwich Albion', 17, 0, 1),
-(8, 42, 'Burnley', 0, 0, 1),
-(8, 43, 'Leicester', 0, 0, 1),
-(8, 44, 'Queens Park Rangers', 0, 0, 1),
-(1, 45, 'Munich', 1, 1, 1),
-(1, 46, 'Dortmund', 2, 1, 1),
-(1, 47, 'Schalke', 3, 0, 1),
-(1, 48, 'Leverkusen', 4, 0, 1),
-(1, 49, 'Wolfsburg', 5, 0, 1),
-(1, 50, 'Monchengladbach', 6, 0, 1),
-(1, 51, 'Mayence', 7, 0, 1),
-(1, 52, 'Augsbourg', 8, 0, 1),
-(1, 53, 'Hoffenheim', 9, 0, 1),
-(1, 54, 'Hanovre', 10, 0, 1),
-(1, 55, 'Berlin', 11, 0, 1),
-(1, 56, 'Breme', 12, 0, 1),
-(1, 57, 'Francfort', 13, 0, 1),
-(1, 58, 'Fribourg', 14, 0, 1),
-(1, 59, 'Stuttgart', 15, 0, 1),
-(1, 60, 'Hambourg', 16, 0, 1),
-(1, 61, 'Paderbon', 0, 0, 1),
-(1, 62, 'Cologne', 0, 0, 1),
-(7, 63, 'Juventus', 1, 1, 1),
-(7, 64, 'AS Rome', 2, 0, 1),
-(7, 65, 'Naples', 3, 1, 1),
-(7, 66, 'Florence', 4, 0, 1),
-(7, 67, 'Inter Milan', 5, 0, 1),
-(7, 68, 'Parme', 6, 0, 1),
-(7, 69, 'Torino', 7, 0, 1),
-(7, 70, 'AC Milan', 8, 0, 1),
-(7, 71, 'Lazio Rome', 9, 0, 1),
-(7, 72, 'Vérone', 10, 0, 1),
-(7, 73, 'Bergame', 11, 0, 1),
-(7, 74, 'Genoe', 13, 0, 1),
-(7, 75, 'Udinese', 14, 0, 1),
-(7, 76, 'Sampdoria', 12, 0, 1),
-(7, 77, 'Cagliari', 15, 0, 1),
-(7, 78, 'Chievo Vérone', 16, 0, 1),
-(7, 79, 'Sassuolo', 17, 0, 1),
-(7, 80, 'Palerme', 0, 0, 1),
-(7, 81, 'Genes', 0, 0, 1),
-(7, 82, 'Empoli', 0, 0, 1),
-(6, 83, 'Atletico Madrid', 1, 0, 1),
-(6, 84, 'Barcelone', 2, 1, 1),
-(6, 85, 'Real Madrid', 3, 1, 1),
-(6, 86, 'Bilbao', 4, 0, 1),
-(6, 87, 'Seville', 5, 0, 1),
-(6, 88, 'Villarreal', 6, 0, 1),
-(6, 89, 'Real Sociedad', 7, 0, 1),
-(6, 90, 'Valence', 8, 0, 1),
-(6, 91, 'Vigo', 9, 0, 1),
-(6, 92, 'Levante', 10, 0, 1),
-(6, 93, 'Malaga', 11, 0, 1),
-(6, 94, 'Vallecano', 12, 0, 1);
+INSERT INTO `equipe` (`idEquipe`, `idPays`, `nomEquipe`, `classementAnneePrecedente`, `vainqueurCoupe`, `idChampionnat`, `idCoupe1`, `idCoupe2`, `idCoupeEurope`) VALUES
+(1, 4, 'Paris', 1, 1, 0, NULL, NULL, NULL),
+(2, 4, 'Monaco', 2, 0, 0, NULL, NULL, NULL),
+(3, 4, 'Lille', 3, 0, 0, NULL, NULL, NULL),
+(4, 4, 'Saint-Etienne', 4, 0, 0, NULL, NULL, NULL),
+(5, 4, 'Lyon', 5, 0, 0, NULL, NULL, NULL),
+(6, 4, 'Marseille', 6, 0, 0, NULL, NULL, NULL),
+(7, 4, 'Bordeaux', 7, 0, 0, NULL, NULL, NULL),
+(8, 4, 'Lorient', 8, 0, 0, NULL, NULL, NULL),
+(9, 4, 'Toulouse', 9, 0, 0, NULL, NULL, NULL),
+(10, 4, 'Bastia', 10, 0, 0, NULL, NULL, NULL),
+(11, 4, 'Reims', 11, 0, 0, NULL, NULL, NULL),
+(12, 4, 'Rennes', 12, 0, 0, NULL, NULL, NULL),
+(13, 4, 'Nantes', 13, 0, 0, NULL, NULL, NULL),
+(14, 4, 'Evian', 14, 0, 0, NULL, NULL, NULL),
+(15, 4, 'Montpellier', 15, 0, 0, NULL, NULL, NULL),
+(16, 4, 'Guingamp', 16, 1, 0, NULL, NULL, NULL),
+(17, 4, 'Nice', 17, 0, 0, NULL, NULL, NULL),
+(18, 4, 'Lens', 0, 0, 0, NULL, NULL, NULL),
+(19, 4, 'Caen', 0, 0, 0, NULL, NULL, NULL),
+(20, 4, 'Metz', 0, 0, 0, NULL, NULL, NULL),
+(23, 8, 'Manchester City', 1, 0, 0, NULL, NULL, NULL),
+(24, 8, 'Liverpool', 2, 0, 0, NULL, NULL, NULL),
+(25, 8, 'Chelsea', 3, 0, 0, NULL, NULL, NULL),
+(26, 8, 'Arsenal', 4, 0, 0, NULL, NULL, NULL),
+(27, 8, 'Everton', 5, 0, 0, NULL, NULL, NULL),
+(28, 8, 'Tottenham', 6, 0, 0, NULL, NULL, NULL),
+(29, 8, 'Manchester United', 7, 0, 0, NULL, NULL, NULL),
+(30, 8, 'Southampton', 8, 0, 0, NULL, NULL, NULL),
+(31, 8, 'Stoke City', 9, 0, 0, NULL, NULL, NULL),
+(32, 8, 'Newcastle', 10, 0, 0, NULL, NULL, NULL),
+(33, 8, 'Crystal Palace', 11, 0, 0, NULL, NULL, NULL),
+(34, 8, 'Swansea', 12, 0, 0, NULL, NULL, NULL),
+(35, 8, 'West Ham', 13, 0, 0, NULL, NULL, NULL),
+(36, 8, 'Sunderland', 14, 0, 0, NULL, NULL, NULL),
+(37, 8, 'Aston Villa', 15, 0, 0, NULL, NULL, NULL),
+(38, 8, 'Hull City', 16, 0, 0, NULL, NULL, NULL),
+(39, 8, 'West Bromwich Albion', 17, 0, 0, NULL, NULL, NULL),
+(42, 8, 'Burnley', 0, 0, 0, NULL, NULL, NULL),
+(43, 8, 'Leicester', 0, 0, 0, NULL, NULL, NULL),
+(44, 8, 'Queens Park Rangers', 0, 0, 0, NULL, NULL, NULL),
+(45, 1, 'Munich', 1, 1, 0, NULL, NULL, NULL),
+(46, 1, 'Dortmund', 2, 1, 0, NULL, NULL, NULL),
+(47, 1, 'Schalke', 3, 0, 0, NULL, NULL, NULL),
+(48, 1, 'Leverkusen', 4, 0, 0, NULL, NULL, NULL),
+(49, 1, 'Wolfsburg', 5, 0, 0, NULL, NULL, NULL),
+(50, 1, 'Monchengladbach', 6, 0, 0, NULL, NULL, NULL),
+(51, 1, 'Mayence', 7, 0, 0, NULL, NULL, NULL),
+(52, 1, 'Augsbourg', 8, 0, 0, NULL, NULL, NULL),
+(53, 1, 'Hoffenheim', 9, 0, 0, NULL, NULL, NULL),
+(54, 1, 'Hanovre', 10, 0, 0, NULL, NULL, NULL),
+(55, 1, 'Berlin', 11, 0, 0, NULL, NULL, NULL),
+(56, 1, 'Breme', 12, 0, 0, NULL, NULL, NULL),
+(57, 1, 'Francfort', 13, 0, 0, NULL, NULL, NULL),
+(58, 1, 'Fribourg', 14, 0, 0, NULL, NULL, NULL),
+(59, 1, 'Stuttgart', 15, 0, 0, NULL, NULL, NULL),
+(60, 1, 'Hambourg', 16, 0, 0, NULL, NULL, NULL),
+(61, 1, 'Paderbon', 0, 0, 0, NULL, NULL, NULL),
+(62, 1, 'Cologne', 0, 0, 0, NULL, NULL, NULL),
+(63, 7, 'Juventus', 1, 1, 0, NULL, NULL, NULL),
+(64, 7, 'AS Rome', 2, 0, 0, NULL, NULL, NULL),
+(65, 7, 'Naples', 3, 1, 0, NULL, NULL, NULL),
+(66, 7, 'Florence', 4, 0, 0, NULL, NULL, NULL),
+(67, 7, 'Inter Milan', 5, 0, 0, NULL, NULL, NULL),
+(68, 7, 'Parme', 6, 0, 0, NULL, NULL, NULL),
+(69, 7, 'Torino', 7, 0, 0, NULL, NULL, NULL),
+(70, 7, 'AC Milan', 8, 0, 0, NULL, NULL, NULL),
+(71, 7, 'Lazio Rome', 9, 0, 0, NULL, NULL, NULL),
+(72, 7, 'Vérone', 10, 0, 0, NULL, NULL, NULL),
+(73, 7, 'Bergame', 11, 0, 0, NULL, NULL, NULL),
+(74, 7, 'Genoe', 13, 0, 0, NULL, NULL, NULL),
+(75, 7, 'Udinese', 14, 0, 0, NULL, NULL, NULL),
+(76, 7, 'Sampdoria', 12, 0, 0, NULL, NULL, NULL),
+(77, 7, 'Cagliari', 15, 0, 0, NULL, NULL, NULL),
+(78, 7, 'Chievo Vérone', 16, 0, 0, NULL, NULL, NULL),
+(79, 7, 'Sassuolo', 17, 0, 0, NULL, NULL, NULL),
+(80, 7, 'Palerme', 0, 0, 0, NULL, NULL, NULL),
+(81, 7, 'Genes', 0, 0, 0, NULL, NULL, NULL),
+(82, 7, 'Empoli', 0, 0, 0, NULL, NULL, NULL),
+(83, 6, 'Atletico Madrid', 1, 0, 0, NULL, NULL, NULL),
+(84, 6, 'Barcelone', 2, 1, 0, NULL, NULL, NULL),
+(85, 6, 'Real Madrid', 3, 1, 0, NULL, NULL, NULL),
+(86, 6, 'Bilbao', 4, 0, 0, NULL, NULL, NULL),
+(87, 6, 'Seville', 5, 0, 0, NULL, NULL, NULL),
+(88, 6, 'Villarreal', 6, 0, 0, NULL, NULL, NULL),
+(89, 6, 'Real Sociedad', 7, 0, 0, NULL, NULL, NULL),
+(90, 6, 'Valence', 8, 0, 0, NULL, NULL, NULL),
+(91, 6, 'Vigo', 9, 0, 0, NULL, NULL, NULL),
+(92, 6, 'Levante', 10, 0, 0, NULL, NULL, NULL),
+(93, 6, 'Malaga', 11, 0, 0, NULL, NULL, NULL),
+(94, 6, 'Vallecano', 12, 0, 0, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `journee`
+--
+
+CREATE TABLE IF NOT EXISTS `journee` (
+  `idJournee` int(11) NOT NULL AUTO_INCREMENT,
+  `idCompetition` int(11) NOT NULL,
+  `dateDebut` date DEFAULT NULL,
+  `dateFin` date DEFAULT NULL,
+  PRIMARY KEY (`idJournee`,`idCompetition`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `match`
+--
+
+CREATE TABLE IF NOT EXISTS `match` (
+  `idMatch` int(11) NOT NULL,
+  `idJournee` int(11) NOT NULL,
+  `idEquipe1` int(11) NOT NULL,
+  `idEquipe2` int(11) NOT NULL,
+  `scoreEquipe1` int(11) DEFAULT NULL,
+  `scoreEquipe2` int(11) DEFAULT NULL,
+  `dateMatch` int(11) DEFAULT NULL,
+  `numPoule` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idMatch`,`idJournee`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -150,11 +230,12 @@ INSERT INTO `equipe` (`idPays`, `idEquipe`, `nomEquipe`, `classementSaisonPreced
 --
 
 CREATE TABLE IF NOT EXISTS `pays` (
-`idPays` int(11) NOT NULL,
+  `idPays` int(11) NOT NULL AUTO_INCREMENT,
   `nomPays` text NOT NULL,
   `nbEquipeLDC` int(11) NOT NULL,
-  `nbEquipeEL` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  `nbEquipeEL` int(11) NOT NULL,
+  PRIMARY KEY (`idPays`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `pays`
@@ -170,47 +251,6 @@ INSERT INTO `pays` (`idPays`, `nomPays`, `nbEquipeLDC`, `nbEquipeEL`) VALUES
 (7, 'Italie', 2, 4),
 (8, 'Angleterre', 4, 2);
 
---
--- Index pour les tables exportées
---
-
---
--- Index pour la table `arbitre`
---
-ALTER TABLE `arbitre`
- ADD PRIMARY KEY (`idArbitre`);
-
---
--- Index pour la table `equipe`
---
-ALTER TABLE `equipe`
- ADD PRIMARY KEY (`idEquipe`);
-
---
--- Index pour la table `pays`
---
-ALTER TABLE `pays`
- ADD PRIMARY KEY (`idPays`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `arbitre`
---
-ALTER TABLE `arbitre`
-MODIFY `idArbitre` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `equipe`
---
-ALTER TABLE `equipe`
-MODIFY `idEquipe` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=95;
---
--- AUTO_INCREMENT pour la table `pays`
---
-ALTER TABLE `pays`
-MODIFY `idPays` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
