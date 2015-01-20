@@ -43,6 +43,7 @@ public class Calendrier {
     }
 
     public ArrayList<Date> getToursChampionsLeague() {
+        this.CreationToursChampionsLeague();
         return tourschampionsleague;
     }
 
