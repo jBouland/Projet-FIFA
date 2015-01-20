@@ -32,15 +32,11 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer 
     private ChampionsLeague champ;
     private int journ;
     private JButton JButton_GenererAleatoirementJournees;
-    private JButton JButton_GenererAleatoirementJournee;
-    private VueCoupeGlobale parent;
 
-    VueJourneeCoupe(ChampionsLeague CoupeActu, int journeSelect, VueCoupeGlobale p) {
-        parent=p;
+    VueJourneeCoupe(ChampionsLeague CoupeActu, int journeSelect) {
         champ = CoupeActu;
         journ = journeSelect;
         JButton_GenererAleatoirementJournees = new JButton("Génerer Aléatoirement tous les scores");
-        JButton_GenererAleatoirementJournee = new JButton("Génerer Aléatoirement les scores de la journée");
         JButton_GenererAleatoirementJournees.addActionListener(this);
         int z = journ + 1;
         this.setBorder(new TitledBorder("Journée " + z));
@@ -76,7 +72,6 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer 
         cont.gridx = 0;
         cont.gridy = 2;
 
-        this.add(JButton_GenererAleatoirementJournee, cont);
         
         this.repaint();
         updateUI();
@@ -102,7 +97,6 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer 
                 }
             }
             champ=champ.genererResultat();
-            parent.setCoupe(champ);
             init();
             this.repaint();
         }

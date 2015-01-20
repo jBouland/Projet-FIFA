@@ -88,7 +88,6 @@ public class Instance {
         ChampionsLeague cl = new ChampionsLeague(1, "C1", 2014, liste);
         cl.creerPhasePoule();
         cl.genererDatesMatchesPoules();
-        cl.creerPhaseFinale();
         ArrayList<ChampionsLeague> c = new ArrayList<>();
         c.add(cl);
         fenetre2 = new VueCoupeGlobale(c);

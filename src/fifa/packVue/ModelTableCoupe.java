@@ -19,7 +19,7 @@ public class ModelTableCoupe extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object o, int i, int i1) {
-        if (isCellEditable(i, i1) == true) {
+        /*if (isCellEditable(i, i1) == true) {
 
             if (testValeur((String)o )==true) {
                 if (i1 == 1) {
@@ -40,8 +40,7 @@ public class ModelTableCoupe extends AbstractTableModel {
 
             }
             }
-        }
-         
+        }*/         
     }
 
     public boolean testValeur(String val) {

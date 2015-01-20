@@ -74,7 +74,7 @@ public final class VueCoupeGlobale extends JFrame implements ActionListener {
 
         passageChamp = new JButton("Championnats");
 
-        vJourneCoupe = new VueJourneeCoupe(CoupeActu, tourSelect, this);
+        vJourneCoupe = new VueJourneeCoupe(CoupeActu, tourSelect);
         JPanel mainPanel = new JPanel();
 
         // ajout du gestionnaire de placement 
@@ -179,10 +179,14 @@ public final class VueCoupeGlobale extends JFrame implements ActionListener {
         }
 
         if (ae.getSource() == listeTourJComboBox) {
+            try{
             tourSelect = listeTourJComboBox.getSelectedIndex();
             vJourneCoupe.setJourn(tourSelect);
             vJourneCoupe.init();
             this.pack();
+            }catch(Exception e){
+                
+            }
         }
 
         if (ae.getSource() == classement) {
@@ -200,8 +204,5 @@ public final class VueCoupeGlobale extends JFrame implements ActionListener {
         this.fenetre = fenetre;
     }
 
-    void setCoupe(ChampionsLeague champ) {
-        this.CoupeActu = champ;
-    }
 
 }
