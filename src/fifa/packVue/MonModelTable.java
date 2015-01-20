@@ -66,6 +66,12 @@ public class MonModelTable extends AbstractTableModel {
 
     public boolean testValeur(String val) {
 
+        if (val.contains(".")){
+            return false;
+        }
+        if (val.contains(",")){
+            return false;
+        }
         if (isNumeric(val) == false) {
             return false;
         }
