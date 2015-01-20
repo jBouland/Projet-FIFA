@@ -32,6 +32,19 @@ public class ChampionsLeague extends Europeenne {
         }
     }
 
+    public void raz() {
+        for (Journee j : calendrier) {
+            for (Match m : j.getMatch_journee()) {
+                m.setScore(0, 0);
+            }
+        }
+        for (Journee j : phase_finale) {
+            for (Match m : j.getMatch_journee()) {
+                m.setScore(0, 0);
+            }
+        }
+    }
+
     public void genererResultat() {
 
 //        this.creerPhasePoule();
@@ -59,7 +72,7 @@ public class ChampionsLeague extends Europeenne {
 
     public ArrayList<Journee> getListeJournee() {
         ArrayList<Journee> retour = calendrier;
-        for(Journee j : phase_finale){
+        for (Journee j : phase_finale) {
             retour.add(j);
         }
         return retour;
@@ -100,6 +113,7 @@ public class ChampionsLeague extends Europeenne {
                             matchspossibles.get(randMatch).setNum_journee(j);
                             calendrier.get(j).ajouterMatch(matchspossibles.get(randMatch));
                             inv = calendrier.get(j).inverserMatch(matchspossibles.get(randMatch));
+                            inv.setNum_poule(matchspossibles.get(randMatch).getNum_poule()); ///ATTENTION PEUT LA 
                             inv.setNum_journee(j + (nbjournee / 2));
                             calendrier.get(j + (nbjournee / 2)).ajouterMatch(inv);
                         } else {
@@ -185,14 +199,16 @@ public class ChampionsLeague extends Europeenne {
 
     public void simulerPhasePoule() {
 
-        for (Journee j : calendrier) {
-            for (Match m : j.getMatch_journee()) {
+        for (int i=0 ; i<6 ; i++ ){
+            for (Match m : calendrier.get(i).getMatch_journee()) {
                 m.simulerMatch();
             }
+
             for (Poule p : phase_poule) {
-                p.majClassement(j.getNum_Journee());
+                p.majClassement(i);
             }
         }
+        int j = 0;
     }
 
     void genererDatesMatchesPoules() {
@@ -257,6 +273,19 @@ public class ChampionsLeague extends Europeenne {
         tour_courant = phase_finale.get(i);
         // tour_courant.simuler_tour();
 
+    }
+
+    public boolean ajoutResultat(int scoreLocal, int scoreExterieur, Match match, Date dateMatch) {
+        if (scoreLocal < 0 || scoreExterieur < 0 || match == null) {
+            return false;
+        }
+
+        match.setScore(scoreLocal, scoreExterieur);
+        Poule p = phase_poule.get(match.getNum_poule() - 1);
+        p.majClassement(match.getNum_journee());
+
+        // match.setDateMatch(dateMatch);
+        return true;
     }
 
     public void affichagePhaseFinale() {

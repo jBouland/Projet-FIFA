@@ -6,6 +6,8 @@
 package fifa.packVue;
 
 import fifa.ChampionsLeague;
+import fifa.ChampionsLeague.Poule;
+import fifa.Equipe;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -25,19 +27,16 @@ import javax.swing.border.TitledBorder;
  *
  * @author Flo
  */
-public class VueJourneeCoupe extends JPanel implements ActionListener, Observer{
+public class VueJourneeCoupe extends JPanel implements ActionListener, Observer {
 
-    
-     private JTable table;
-    
+    private JTable table;
+
     private ChampionsLeague champ;
     private int journ;
     private JButton JButton_GenererAleatoirementJournees;
     private JButton JButton_GenererAleatoirementJournee;
-    
-       
-    
-    VueJourneeCoupe(ChampionsLeague CoupeActu, int journeSelect) {     
+
+    VueJourneeCoupe(ChampionsLeague CoupeActu, int journeSelect) {
         champ = CoupeActu;
         journ = journeSelect;
         JButton_GenererAleatoirementJournees = new JButton("Génerer Aléatoirement tous les scores");
@@ -48,14 +47,14 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer{
 
         init();
     }
-    
+
     void init() {
         removeAll();
-        ModelTableCoupe t = new ModelTableCoupe(champ.getListeJournee().get(journ),champ);
+        ModelTableCoupe t = new ModelTableCoupe(champ.getListeJournee().get(journ), champ);
         table = new JTable(t);
         int z = journ + 1;
         this.setBorder(new TitledBorder("Journée " + z));
-        
+
         JScrollPane scroll = new JScrollPane(table);
         scroll.setPreferredSize(new Dimension(450, 167));
 
@@ -79,10 +78,9 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer{
 
         this.add(JButton_GenererAleatoirementJournee, cont);
 
-        
         updateUI();
     }
-    
+
     public void setChamp(ChampionsLeague champ) {
         this.champ = champ;
     }
@@ -94,6 +92,12 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer{
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == JButton_GenererAleatoirementJournees) {
+            champ.raz();
+            for (Poule p : champ.getPhase_poule()) {
+                for (int i=0 ; i<p.getEquipes().size() ; i++) {
+                    p.getClassement().get(i).razPosition();
+                }
+            }
             champ.genererResultat();
         }
 
@@ -102,7 +106,6 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer{
     @Override
     public void update(Observable o, Object o1) {
         init();
-       
     }
 
 }

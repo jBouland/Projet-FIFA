@@ -4,12 +4,12 @@
  */
 package fifa.packVue;
 
-import fifa.Championnat;
+
 import fifa.ChampionsLeague;
 import fifa.Journee;
+import static fifa.packVue.MonModelTable.isNumeric;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,32 +19,46 @@ public class ModelTableCoupe extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object o, int i, int i1) {
-        /*if (isCellEditable(i, i1) == true) {
+        if (isCellEditable(i, i1) == true) {
 
-         if (i1 == 1) {
-         liste.get(i).butEquipe1 = (String) o;
-         fireTableCellUpdated(i, i1);
-         int x= Integer.parseInt(liste.get(i).butEquipe1);
-         System.out.println(x);
-         c.ajoutResultat(x,journee.getMatch_journee().get(i).getScoreExterieur(),journee.getMatch_journee().get(i),null);
-              
-                
-         }
-         if (i1==2){
-                
-         liste.get(i).butEquipe2 = (String) o;
-         fireTableCellUpdated(i, i1);
-         int x= Integer.parseInt(liste.get(i).butEquipe1);
-                
-         c.ajoutResultat(journee.getMatch_journee().get(i).getScoreLocal(),x,journee.getMatch_journee().get(i),null);
-              
-         }
-           
+            if (testValeur((String)o )==true) {
+                if (i1 == 1) {
+                    liste.get(i).butEquipe1 = (String) o;
+                    fireTableCellUpdated(i, i1);
+                    int x = Integer.parseInt(liste.get(i).butEquipe1);
+                    System.out.println(x);
+                    c.ajoutResultat(x, journee.getMatch_journee().get(i).getScoreExterieur(), journee.getMatch_journee().get(i), null);
+
+                }
             
+            if (i1 == 2) {
 
-         }*/
+                liste.get(i).butEquipe2 = (String) o;
+                fireTableCellUpdated(i, i1);
+                int x = Integer.parseInt(liste.get(i).butEquipe2);
+                c.ajoutResultat(journee.getMatch_journee().get(i).getScoreLocal(), x, journee.getMatch_journee().get(i), null);
+
+            }
+            }
+        }
+         
     }
 
+    public boolean testValeur(String val) {
+
+        if (isNumeric(val) == false) {
+            return false;
+        }
+            if (Integer.parseInt(val) < 0) {
+            return false;
+        } 
+        if (Integer.parseInt(val) > 1000) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
     @Override
     public boolean isCellEditable(int i, int i1) {
         if (journee.getEstModifiable() == false) {
