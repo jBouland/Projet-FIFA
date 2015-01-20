@@ -29,17 +29,16 @@ public class MonModelTable extends AbstractTableModel {
                     c.ajoutResultat(x, journee.getMatch_journee().get(i).getScoreExterieur(), journee.getMatch_journee().get(i), null);
 
                 }
-            }
+            
             if (i1 == 2) {
 
                 liste.get(i).butEquipe2 = (String) o;
                 fireTableCellUpdated(i, i1);
-                int x = Integer.parseInt(liste.get(i).butEquipe1);
-
+                int x = Integer.parseInt(liste.get(i).butEquipe2);
                 c.ajoutResultat(journee.getMatch_journee().get(i).getScoreLocal(), x, journee.getMatch_journee().get(i), null);
 
             }
-
+            }
         }
     }
 
@@ -48,10 +47,10 @@ public class MonModelTable extends AbstractTableModel {
         if (isNumeric(val) == false) {
             return false;
         }
-        if (Integer.parseInt(val) < 0) {
+            if (Integer.parseInt(val) < 0) {
             return false;
         } 
-        if (Integer.parseInt(val) >1000) {
+        if (Integer.parseInt(val) > 1000) {
             return false;
         } else {
             return true;
