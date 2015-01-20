@@ -51,11 +51,6 @@ public class ChampionsLeague extends Europeenne {
         
         this.creerPhaseFinale();
 
-        for (Tour tour : phase_finale) {
-            for (Match m : tour.match_journee) {
-                m.simulerMatch();
-            }
-        }
         return this;
 
     }
@@ -246,11 +241,23 @@ public class ChampionsLeague extends Europeenne {
 
         //et on l'ajoute à la liste des phase_finale
         this.phase_finale.add(huitiemes);
+            for (Match m : huitiemes.match_journee) {
+                m.simulerMatch();
+            }
         quarts.creerTourSortiTour(huitiemes.getQualifiesTourSuivant());
+        for (Match m : quarts.match_journee) {
+                m.simulerMatch();
+            }
         this.phase_finale.add(quarts);
         demis.creerTourSortiTour(quarts.getQualifiesTourSuivant());
+        for (Match m : demis.match_journee) {
+                m.simulerMatch();
+            }
         this.phase_finale.add(demis);
         finale.creerFinale(demis.getQualifiesTourSuivant());
+        for (Match m : finale.match_journee) {
+                m.simulerMatch();
+            }
         this.phase_finale.add(finale);
 
     }
@@ -520,28 +527,22 @@ public class ChampionsLeague extends Europeenne {
                 if (total_but_equipeA == total_but_equipeB) { // Si les deux équipes sont à égalité
                     if (tot_ext_equipeA == tot_ext_equipeB) {
                         list_retour.add(match_aller.getEquipeLocale());
-                        break;
                     }
                     if (tot_ext_equipeA > tot_ext_equipeB) {
                         list_retour.add(match_aller.getEquipeLocale());
-                        break;
                     }
                     if (tot_ext_equipeA < tot_ext_equipeB) {
                         list_retour.add(match_aller.getEquipeExterieure());
-                        break;
                     }
                 } else {
                     if (total_but_equipeA == total_but_equipeB) {
                         list_retour.add(match_aller.getEquipeLocale());
-                        break;
                     }
                     if (total_but_equipeA > total_but_equipeB) {
                         list_retour.add(match_aller.getEquipeLocale());
-                        break;
                     }
                     if (total_but_equipeA < total_but_equipeB) {
                         list_retour.add(match_aller.getEquipeExterieure());
-                        break;
                     }
                 }
             }
