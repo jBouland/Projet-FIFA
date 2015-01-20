@@ -134,6 +134,22 @@ public class Match {
 
     }
     
+    public void simulerMatchFinale() {
+
+        Random rd = new Random();
+
+        this.scoreLocal = rd.nextInt(5);
+        this.scoreExterieur = rd.nextInt(5);
+        
+        if(scoreLocal==scoreExterieur){
+            if(rd.nextInt(2)==1){
+                this.scoreLocal++;
+            }else{
+                this.scoreExterieur++;
+            }
+        }
+    }
+    
     public void razMatch(){
         scoreLocal = 0;
         scoreExterieur = 0;

@@ -256,7 +256,7 @@ public class ChampionsLeague extends Europeenne {
         this.phase_finale.add(demis);
         finale.creerFinale(demis.getQualifiesTourSuivant());
         for (Match m : finale.match_journee) {
-                m.simulerMatch();
+                m.simulerMatchFinale();
             }
         this.phase_finale.add(finale);
 
