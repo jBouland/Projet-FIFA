@@ -28,8 +28,8 @@ public class AffichageJournee extends JPanel implements ActionListener, Observer
 
     private JTable table;
 
-    private JButton JButton_GenererAleatoirementJournees;
-    private JButton JButton_GenererAleatoirementJournee;
+    private JButton genererTout;
+    private JButton genererJournee;
     private Championnat champ;
     private int journ;
 
@@ -40,9 +40,10 @@ public class AffichageJournee extends JPanel implements ActionListener, Observer
 
         table = new JTable(new MonModelTable(champ.getListeJournee().get(journ) ,champ));
 
-        JButton_GenererAleatoirementJournees = new JButton("Génerer Aléatoirement tous les scores");
-        JButton_GenererAleatoirementJournee = new JButton("Génerer Aléatoirement les scores de la journée");
-        JButton_GenererAleatoirementJournees.addActionListener(this);
+        genererTout = new JButton("Génerer Aléatoirement tous les scores");
+        genererJournee = new JButton("Génerer Aléatoirement les scores de la journée");
+        genererTout.addActionListener(this);
+        genererJournee.addActionListener(this);
         int z = journ + 1;
         this.setBorder(new TitledBorder("Journée " + z));
 
@@ -71,12 +72,12 @@ public class AffichageJournee extends JPanel implements ActionListener, Observer
         cont.gridwidth = 1;
         cont.gridx = 0;
         cont.gridy = 1;
-        this.add(JButton_GenererAleatoirementJournees, cont);
+        this.add(genererTout, cont);
         cont.insets = new Insets(10, 0, 0, 0);
         cont.gridx = 0;
         cont.gridy = 2;
 
-        this.add(JButton_GenererAleatoirementJournee, cont);
+        this.add(genererJournee, cont);
 
         
         updateUI();
@@ -92,10 +93,13 @@ public class AffichageJournee extends JPanel implements ActionListener, Observer
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == JButton_GenererAleatoirementJournees) {
+        if (ae.getSource() == genererTout) {
+            champ.razClassement();
             champ.genererResultat();
-           
+        } else if(ae.getSource() == genererJournee){
+            champ.genererResultat(journ);
 
+            init();
         }
 
     }

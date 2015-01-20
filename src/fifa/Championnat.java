@@ -18,10 +18,10 @@ public class Championnat extends Nationale {
     private Match[][] rencontres;
     private Position[] classement;
     private ArrayList<Journee> listeJournee;
-    
-    public ArrayList<Journee> getListeJournee(){
+
+    public ArrayList<Journee> getListeJournee() {
         return this.listeJournee;
-        
+
     }
 
     public Championnat() {
@@ -55,16 +55,27 @@ public class Championnat extends Nationale {
     }
 
     public Position getClassement(int i) {
-        if(i>=0 && i<equipe.size()){
+        if (i >= 0 && i < equipe.size()) {
             return classement[i];
         }
         return null;
     }
-    
-    public boolean razClassement(){
-        
-        for(int i=0; i<equipe.size(); i++){
+
+    public boolean razClassement() {
+
+        razMatches();
+        for (int i = 0; i < equipe.size(); i++) {
             classement[i].razPosition();
+        }
+        return true;
+    }
+
+    public boolean razMatches() {
+
+        for ( Journee j :listeJournee){
+            for(Match m : j.getMatch_journee()){
+                m.razMatch();
+            }
         }
         return true;
     }
@@ -120,13 +131,13 @@ public class Championnat extends Nationale {
     }
 
     public void affiche() {
-        for (int i = 0; i < nbJournee; i++) {
-            System.out.println("** Journée " + i + " **");
-            listeJournee.get(i).affiche();
-            /*          for (int j = 0; j < nbEquipe / 2; j++) {
-             System.out.println(j + " " + rencontres[i][j]);
-             }*/
-        }
+        /*  for (int i = 0; i < nbJournee; i++) {
+         System.out.println("** Journée " + i + " **");
+         listeJournee.get(i).affiche();
+         for (int j = 0; j < nbEquipe / 2; j++) {
+         System.out.println(j + " " + rencontres[i][j]);
+         }
+         }*/
     }
 
     public void genererResultat() {
@@ -143,12 +154,25 @@ public class Championnat extends Nationale {
 
     }
 
+    public void genererResultat(int jour) {
+        if (jour >= 0 && jour < nbJournee) {
+            int scoreLocal;
+            int scoreEx;
+            for (int j = 0; j < nbEquipe / 2; j++) {
+                scoreLocal = (int) (Math.random() * 5);
+                scoreEx = (int) (Math.random() * 5);
+                ajoutResultat(scoreLocal, scoreEx, rencontres[jour][j], null);
+            }
+        }
+    }
+
     public boolean ajoutResultat(int scoreLocal, int scoreExterieur, Match match, Date dateMatch) {
-           if(scoreLocal < 0 || scoreExterieur < 0 || match == null  )
-                   return false;
-        
+        if (scoreLocal < 0 || scoreExterieur < 0 || match == null) {
+            return false;
+        }
+
         match.setScore(scoreLocal, scoreExterieur);
-       // match.setDateMatch(dateMatch);
+        // match.setDateMatch(dateMatch);
 
         for (int i = 0; i < equipe.size(); i++) {
             if (match.getEquipeLocale().getIdEquipe() == classement[i].getEquipe().getIdEquipe()) {
@@ -159,12 +183,10 @@ public class Championnat extends Nationale {
         }
         quickSort(0, equipe.size() - 1);
         triFinal();
-        for (int i = 0; i < equipe.size(); i++) {
-            System.out.println((i + 1) + ") " + classement[i].getEquipe().getNomEquipe() + ": " + classement[i].getScore());
-        }
+
         setChanged();
         notifyObservers();
-       return true;
+        return true;
     }
 
     public void echanger(int debut, int fin) {
@@ -229,12 +251,10 @@ public class Championnat extends Nationale {
         Calendrier c = new Calendrier(saison);
         ArrayList<Date> dates;
         c.CreationCoupeetChampionnat();
-        dates=c.getChampionnat();
-        for(Journee j : listeJournee){
+        dates = c.getChampionnat();
+        for (Journee j : listeJournee) {
             j.affecterDatesChampionnat(dates);
         }
     }
-
-    
 
 }
