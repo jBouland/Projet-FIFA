@@ -21,7 +21,7 @@ public abstract class Competition extends Observable {
 
     }
 
-    public Competition(String nomCompetition, int saison, int idCompetition, ArrayList<Equipe> equipe) {
+    public Competition(String nomCompetition,int idCompetition,  int saison, ArrayList<Equipe> equipe) {
         this.nomCompetition = nomCompetition;
         this.saison = saison;
         this.idCompetition = idCompetition;

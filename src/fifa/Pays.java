@@ -20,7 +20,6 @@ public class Pays {
     private int idPays;
     private String nom;
     private int indiceFIFA;
-    private ArrayList<Nationale> championnats;
     private ArrayList<Equipe> equipe;
 
     public Pays(int idPays, String nom) {

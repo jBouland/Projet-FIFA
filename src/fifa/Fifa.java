@@ -74,6 +74,7 @@ public class Fifa {
         cl.afficherPhasePoule();
         
         cl.creerPhaseFinale();
+        cl.genererDatesMatchesTours();
         cl.simulerPhaseFinale();
         cl.affichagePhaseFinale();
        

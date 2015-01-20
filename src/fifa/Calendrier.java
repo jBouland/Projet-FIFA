@@ -19,13 +19,14 @@ public class Calendrier {
     Calendar c;
     int annee;
     Date d;
-    ArrayList<Date> championnat, pouleschampionsleague, coupe_nationale;
+    ArrayList<Date> championnat, pouleschampionsleague, tourschampionsleague, coupe_nationale;
 
     public Calendrier(int a) {
         this.annee = a;
         championnat = new ArrayList<>();
         pouleschampionsleague = new ArrayList();
         coupe_nationale = new ArrayList();
+        tourschampionsleague = new ArrayList();
         c = GregorianCalendar.getInstance();
     }
 
@@ -39,6 +40,10 @@ public class Calendrier {
 
     public ArrayList<Date> getCoupe_nationale() {
         return coupe_nationale;
+    }
+
+    public ArrayList<Date> getToursChampionsLeague() {
+        return tourschampionsleague;
     }
 
     public void CreationCoupeetChampionnat() {
@@ -96,12 +101,57 @@ public class Calendrier {
                     pouleschampionsleague.add(c.getTime());
                     c.add(Calendar.DATE, +1);
                 }
-c.add(Calendar.DATE, -2);
+                c.add(Calendar.DATE, -2);
             } else {
                 c.add(Calendar.DATE, +7);
             }
 
         }
+    }
+
+    public void CreationToursChampionsLeague() {
+
+        c.setWeekDate(annee + 1, 8, 3);
+
+        //------- Phase Finale------------//
+        //Les huitièmes aller
+        tourschampionsleague.add(c.getTime());//le mardi
+        c.add(Calendar.DATE, +1);
+        tourschampionsleague.add(c.getTime());//le mercredi
+        c.add(Calendar.DATE, +6);//la semaine suivante
+        tourschampionsleague.add(c.getTime());//le mardi de la semaine suivante
+        c.add(Calendar.DATE, +1);
+        tourschampionsleague.add(c.getTime());//le mercredi de la semaine suivante
+
+        //Les huitiemes retour (2 semaines apres) 
+        c.add(Calendar.DATE, +13);
+        tourschampionsleague.add(c.getTime());//le mardi
+        c.add(Calendar.DATE, +1);
+        tourschampionsleague.add(c.getTime());//le mercredi
+        c.add(Calendar.DATE, +6);//la semaine suivante
+        tourschampionsleague.add(c.getTime());//le mardi de la semaine suivante
+        c.add(Calendar.DATE, +1);
+        tourschampionsleague.add(c.getTime());//le mercredi de la semaine suivante
+
+        //les quarts aller
+        c.add(Calendar.DATE, +27);//trois semaines plus tard
+        tourschampionsleague.add(c.getTime());//le mardi
+
+        //les quarts retour
+        c.add(Calendar.DATE, +8);
+        tourschampionsleague.add(c.getTime());//le mercredi de la semaine suivante
+
+        //les demis aller
+        c.add(Calendar.DATE, +13);
+        tourschampionsleague.add(c.getTime());//le mardi
+
+        //les demisretour
+        c.add(Calendar.DATE, +8);
+        tourschampionsleague.add(c.getTime());//le mercredi de la semaine suivante
+
+        //La Finale
+        c.add(Calendar.DATE, +24);//tois semaines plus tard + le samedi
+        tourschampionsleague.add(c.getTime());
     }
 
     public Calendar getC() {

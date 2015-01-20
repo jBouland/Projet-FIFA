@@ -168,7 +168,7 @@ public class ChampionsLeague extends Europeenne {
         c.CreationPouleChampionsLeague();
         dates = c.getPouleschampionsleague();
         for (Journee j : calendrier) {
-            j.affecterDatesPouleChampionsLeague(j.getNum_Journee(),dates);
+            j.affecterDatesPouleChampionsLeague(j.getNum_Journee(), dates);
         }
     }
 
@@ -232,6 +232,18 @@ public class ChampionsLeague extends Europeenne {
 
         }
 
+    }
+
+    void genererDatesMatchesTours() {
+        Calendrier c = new Calendrier(saison);
+        ArrayList<Date> dates;
+        c.CreationToursChampionsLeague();
+        dates = c.getToursChampionsLeague();
+        for (Tour tour_courant : phase_finale) {
+            
+            
+           
+        }
     }
 
     public class Tour extends Journee {

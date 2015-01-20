@@ -163,5 +163,13 @@ public class Journee {
         dates.remove(0);
 
     }
+    
+        void affecterDatesToursChampionsLeague(int j, ArrayList<Date> dates) {
+        debut = dates.get(0);
+        fin = dates.get(1);
+
+        dates.remove(0);
+
+    }
 
 }
