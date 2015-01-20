@@ -100,30 +100,31 @@ public class AffichageJournee extends JPanel implements ActionListener, Observer
         if (ae.getSource() == genererTout) {
             champ.razClassement();
             champ.genererResultat();
+            /*init();*/
         } else if (ae.getSource() == genererJournee) {
             champ.genererResultat(journ);
-
             init();
-        }/* else if (ae.getSource() == validerTout) {
+        }
+        /* else if (ae.getSource() == validerTout) {
 
-            int local;
-            int exter;
+         int local;
+         int exter;
 
-            for (int i = 0; i < table.getRowCount(); i++) { 
-                local = Integer.parseInt(table.getValueAt(i, 1).toString());
-                exter = Integer.parseInt(table.getValueAt(i, 2).toString());
-                 champ.ajoutResultat(local, exter, champ.getListeJournee().get(journ).getMatch_journee().get(i), null);
+         for (int i = 0; i < table.getRowCount(); i++) { 
+         local = Integer.parseInt(table.getValueAt(i, 1).toString());
+         exter = Integer.parseInt(table.getValueAt(i, 2).toString());
+         champ.ajoutResultat(local, exter, champ.getListeJournee().get(journ).getMatch_journee().get(i), null);
                 
-            }
+         }
 
-        }*/
+         }*/
 
     }
 
     @Override
     public void update(Observable o, Object o1) {
         init();
-
     }
+
 
 }

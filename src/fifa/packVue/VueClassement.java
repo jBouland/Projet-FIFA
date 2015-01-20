@@ -91,13 +91,13 @@ public class VueClassement extends JPanel implements Observer{//pour ligue 1
             classement = new JTable(row, columnNames);
             affiche();
             this.updateUI();
-
         }
     }
 
     @Override
     public void update(Observable o, Object o1) {
         chargementClassement(championnat);
+        
     }
 
 }

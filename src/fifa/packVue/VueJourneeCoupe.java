@@ -7,7 +7,6 @@ package fifa.packVue;
 
 import fifa.ChampionsLeague;
 import fifa.ChampionsLeague.Poule;
-import fifa.Equipe;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -35,8 +33,10 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer 
     private int journ;
     private JButton JButton_GenererAleatoirementJournees;
     private JButton JButton_GenererAleatoirementJournee;
+    private VueCoupeGlobale parent;
 
-    VueJourneeCoupe(ChampionsLeague CoupeActu, int journeSelect) {
+    VueJourneeCoupe(ChampionsLeague CoupeActu, int journeSelect, VueCoupeGlobale p) {
+        parent=p;
         champ = CoupeActu;
         journ = journeSelect;
         JButton_GenererAleatoirementJournees = new JButton("Génerer Aléatoirement tous les scores");
@@ -49,7 +49,7 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer 
     }
 
     void init() {
-        removeAll();
+        this.removeAll();
         ModelTableCoupe t = new ModelTableCoupe(champ.getListeJournee().get(journ), champ);
         table = new JTable(t);
         int z = journ + 1;
@@ -77,7 +77,8 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer 
         cont.gridy = 2;
 
         this.add(JButton_GenererAleatoirementJournee, cont);
-
+        
+        this.repaint();
         updateUI();
     }
 
@@ -88,6 +89,8 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer 
     public void setJourn(int journ) {
         this.journ = journ;
     }
+    
+ 
 
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -98,7 +101,10 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer 
                     p.getClassement().get(i).razPosition();
                 }
             }
-            champ.genererResultat();
+            champ=champ.genererResultat();
+            parent.setCoupe(champ);
+            init();
+            this.repaint();
         }
 
     }

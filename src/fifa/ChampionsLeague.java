@@ -44,17 +44,19 @@ public class ChampionsLeague extends Europeenne {
             }
         }
     }
+    
+    public ChampionsLeague genererResultat() {
 
-    public void genererResultat() {
-
-//        this.creerPhasePoule();
         this.simulerPhasePoule();
-        //      this.genererDatesMatchesPoules();
-        //       this.afficherCalendrierPhasePoule();
-        //       this.afficherPhasePoule();
-        //       this.creerPhaseFinale();
-        this.simulerPhaseFinale();
-        //   this.affichagePhaseFinale();
+        
+        this.creerPhaseFinale();
+
+        for (Tour tour : phase_finale) {
+            for (Match m : tour.match_journee) {
+                m.simulerMatch();
+            }
+        }
+        return this;
 
     }
 
@@ -225,7 +227,10 @@ public class ChampionsLeague extends Europeenne {
     ///////// GESTION DE LA PHASE FINALE //////////////
     //////////////////////////////////////////////////
     public void creerPhaseFinale() {
-
+        
+        phase_finale=null;
+        phase_finale = new ArrayList<>();
+        
         //creation des tours
         Tour huitiemes = new Tour(8);
         Tour quarts = new Tour(4);
