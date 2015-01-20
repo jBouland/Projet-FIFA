@@ -53,6 +53,7 @@ public class Position {
         this.nombreNul = 0;
         this.butsMarques = 0;
         this.butsEncaisses = 0;
+        this.score=0;
         
         return true;
     }

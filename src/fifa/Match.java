@@ -133,6 +133,11 @@ public class Match {
         this.scoreExterieur = rd.nextInt(5);
 
     }
+    
+    public void razMatch(){
+        scoreLocal = 0;
+        scoreExterieur = 0;
+    }
 
     public Equipe getEquipeVictorieuse() {
 
