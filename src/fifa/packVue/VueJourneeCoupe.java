@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -48,9 +49,10 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer{
         init();
     }
     
-    private void init() {
+    void init() {
         removeAll();
-        table = new JTable(new ModelTableCoupe(champ.getListeJournee().get(journ),champ));
+        ModelTableCoupe t = new ModelTableCoupe(champ.getListeJournee().get(journ),champ);
+        table = new JTable(t);
         int z = journ + 1;
         this.setBorder(new TitledBorder("Journée " + z));
         

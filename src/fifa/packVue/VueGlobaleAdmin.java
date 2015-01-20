@@ -181,10 +181,7 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
         }else if(ae.getSource()==listeJournéeJComboBox){
            aj.setJourn(listeJournéeJComboBox.getSelectedIndex());
             aj.init();
-          
-         
-            
-            
+
         }
     }
 

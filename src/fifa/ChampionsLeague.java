@@ -13,14 +13,14 @@ import java.util.Random;
 ///RAJOUTER LA CONDITION DES MEMES PAYS POUR LA CREATION DES POULES
 ///BDD POULES ET TOURS ???
 public class ChampionsLeague extends Europeenne {
-    
+
     private ArrayList<Poule> phase_poule;
     private ArrayList<Journee> calendrier;
     private ArrayList<Tour> phase_finale;
-    
+
     public ChampionsLeague(int idCompetition, String nomCoupeEurope, int saison, ArrayList<Equipe> equipe) {
         super(idCompetition, nomCoupeEurope, saison, equipe);
-        
+
         phase_poule = new ArrayList<>();
         if (equipe.size() == 32) {
             for (int i = 1; i < 9; i++) {
@@ -31,19 +31,38 @@ public class ChampionsLeague extends Europeenne {
             System.out.println("Il faut 32 équipes");
         }
     }
-    
+
     public void genererResultat() {
-        
-        this.creerPhasePoule();
+
+//        this.creerPhasePoule();
         this.simulerPhasePoule();
-        this.genererDatesMatchesPoules();
-        this.afficherCalendrierPhasePoule();
-        this.afficherPhasePoule();
-        
-        this.creerPhaseFinale();
+        //      this.genererDatesMatchesPoules();
+        //       this.afficherCalendrierPhasePoule();
+        //       this.afficherPhasePoule();
+        //       this.creerPhaseFinale();
         this.simulerPhaseFinale();
-        this.affichagePhaseFinale();
-        
+        //   this.affichagePhaseFinale();
+
+    }
+
+    public ArrayList<Poule> getPhase_poule() {
+        return phase_poule;
+    }
+
+    public ArrayList<Journee> getCalendrier() {
+        return calendrier;
+    }
+
+    public ArrayList<Tour> getPhase_finale() {
+        return phase_finale;
+    }
+
+    public ArrayList<Journee> getListeJournee() {
+        ArrayList<Journee> retour = calendrier;
+        for(Journee j : phase_finale){
+            retour.add(j);
+        }
+        return retour;
     }
 
     ////////////////////////////////////////////////////
@@ -57,11 +76,11 @@ public class ChampionsLeague extends Europeenne {
         int randMatch;
         ArrayList<Match> matchspossibles;
         ArrayList<Boolean> matchsdispo;
-        
+
         for (int k = 0; k < nbjournee; k++) {
             calendrier.add(new Journee(k));
         }
-        
+
         for (int i = 0; i < phase_poule.size(); i++) { // pour chaque poule
                 /* Prend les matchs dispo*/
             matchspossibles = this.matchPossiblePoule(phase_poule.get(i).getEquipes());
@@ -90,14 +109,14 @@ public class ChampionsLeague extends Europeenne {
                         t--;
                     }
                 }
-                
+
             }
             matchspossibles.clear();
             matchsdispo.clear();
         }
-        
+
     }
-    
+
     private ArrayList<Match> matchPossiblePoule(ArrayList<Equipe> poule) {
         ArrayList<Match> matchspossibles = new ArrayList<Match>();
         Match temp;
@@ -117,29 +136,29 @@ public class ChampionsLeague extends Europeenne {
     //////////////////////////////////////////////////
     public void creerPhasePoule() {
         ArrayList<Equipe> temp = equipe;
-        
+
         for (int i = 0; i < 8; i++) {
             phase_poule.get(i).creer_group(temp);
         }
         this.creerCalendrier(6);
     }
-    
+
     public void afficherCalendrierPhasePoule() {
-        
+
         for (Journee journee_courante : calendrier) {
             System.out.println("MATCH de la JOURNEE " + journee_courante.getNum_Journee());
             journee_courante.afficheMatch();
             System.out.println();
         }
-        
+
     }
-    
+
     public void afficherPhasePoule() {
         for (Poule p : phase_poule) {
             p.afficherPoule();
         }
     }
-    
+
     public ArrayList<Equipe> chapeau(int numero) {
         ArrayList<Equipe> chapeau = new ArrayList<>();
         for (Poule p : phase_poule) {
@@ -152,7 +171,7 @@ public class ChampionsLeague extends Europeenne {
         }
         return chapeau;
     }
-    
+
     public int numPoule(Equipe e) {
         for (Poule p : phase_poule) {
             for (Equipe eq : p.getEquipes()) {
@@ -163,9 +182,9 @@ public class ChampionsLeague extends Europeenne {
         }
         return 0;
     }
-    
+
     public void simulerPhasePoule() {
-        
+
         for (Journee j : calendrier) {
             for (Match m : j.getMatch_journee()) {
                 m.simulerMatch();
@@ -175,7 +194,7 @@ public class ChampionsLeague extends Europeenne {
             }
         }
     }
-    
+
     void genererDatesMatchesPoules() {
         Calendrier c = new Calendrier(saison);
         ArrayList<Date> dates;
@@ -206,68 +225,70 @@ public class ChampionsLeague extends Europeenne {
 
         //et on l'ajoute à la liste des phase_finale
         this.phase_finale.add(huitiemes);
-        
+        quarts.creerTourSortiTour(huitiemes.getQualifiesTourSuivant());
         this.phase_finale.add(quarts);
+        demis.creerTourSortiTour(quarts.getQualifiesTourSuivant());
         this.phase_finale.add(demis);
+        finale.creerFinale(demis.getQualifiesTourSuivant());
         this.phase_finale.add(finale);
-        
+
     }
-    
+
     public void simulerPhaseFinale() {
-        
+
         Tour tour_suivant = null;
         Tour tour_courant = null;
         int i;
         for (i = 0; i < phase_finale.size() - 1; i++) {
-            
+
             tour_courant = phase_finale.get(i);
-            tour_courant.simuler_tour();
-            
+            //    tour_courant.simuler_tour();
+
             if (i == phase_finale.size() - 2) {
                 tour_suivant = phase_finale.get(i + 1);
                 tour_suivant.creerFinale(tour_courant.getQualifiesTourSuivant());
             } else {
                 tour_suivant = phase_finale.get(i + 1);
                 tour_suivant.creerTourSortiTour(tour_courant.getQualifiesTourSuivant());
-                
+
             }
-            
+
         }
         tour_courant = phase_finale.get(i);
-        tour_courant.simuler_tour();
-        
+        // tour_courant.simuler_tour();
+
     }
-    
+
     public void affichagePhaseFinale() {
-        
+
         for (Tour tour_courant : phase_finale) {
-            
+
             tour_courant.afficher_resultats_tour();
-            
+
         }
-        
+
     }
-    
+
     public class Tour extends Journee {
-        
+
         ArrayList<Date> dates_tours;
         private int index_date;
-        
+
         public Tour(int num_tour) {
             super(num_tour);
-            
+
             Calendrier c = new Calendrier(saison);
             dates_tours = c.getToursChampionsLeague();
             index_date = 0;
         }
-        
+
         public void creerTourSortiePoule(ArrayList<Equipe> chapeau1, ArrayList<Equipe> chapeau2) {
             Random rd = new Random();
             boolean continuer = true;
             int randEquipe;
             Equipe c1, c2;
             int taille = chapeau1.size();
-            
+
             index_date = 0;//pour sélectionner les dates dans la listes des dates du tour
 
             ArrayList<Equipe> temp2;
@@ -309,37 +330,45 @@ public class ChampionsLeague extends Europeenne {
                         i = 0;
                     }
                 }
-                
+
             }
-            
-            for (Match m : match_journee) {
-                int i = 0;
-                while (i < 2) {
-                    m.setDateMatch(dates_tours.get(i));
-                }
-                
+
+            int index = 0;
+            int i = 0;
+            while (i < 4) {
+
+                match_journee.get(index).setDateMatch(dates_tours.get(i));
+                index++;
+                match_journee.get(index).setDateMatch(dates_tours.get(i + 4));
+                index++;
+                match_journee.get(index).setDateMatch(dates_tours.get(i));
+                index++;
+                match_journee.get(index).setDateMatch(dates_tours.get(i + 4));
+                index++;
+
+                i++;
             }
+
         }
-        
+
         public void creerFinale(ArrayList<Equipe> eq_qualifiees) {
-            
-            Random rand = new Random();
-            int indice;
-            
+
             Equipe equipe1 = eq_qualifiees.get(0);//on prend la première équipe de la liste
 
             Equipe equipe2 = eq_qualifiees.get(1);//on recupere l'equipe associée à cet indice
 
-            this.match_journee.add(new Match(equipe1, equipe2));//on genere un match unique avec ces deux equipes
+            Match finale = new Match(equipe1, equipe2);
+            finale.setDateMatch(dates_tours.get(12));
 
+            this.match_journee.add(finale);//on genere un match unique avec ces deux equipes
         }
-        
+
         public void creerTourSortiTour(ArrayList<Equipe> eq_qualifiees) {
-            
+
             Random rand = new Random();
             int indice;
             Match match_aller, match_retour;
-            
+
             while (eq_qualifiees.isEmpty() != true) {
                 Equipe equipe1 = eq_qualifiees.get(0);//on prend la première équipe de la liste
                 try {
@@ -361,9 +390,44 @@ public class ChampionsLeague extends Europeenne {
                     System.out.println("pb a" + this.num_Journee);
                 }
             }
-            
+
+            if (match_journee.size() == 8) {//si on joue les quarts de finale
+                int index = 0;
+                int i = 8;
+
+                while (i < 10) {
+
+                    match_journee.get(index).setDateMatch(dates_tours.get(i));
+                    index++;
+                    match_journee.get(index).setDateMatch(dates_tours.get(i + 1));
+                    index++;
+                    match_journee.get(index).setDateMatch(dates_tours.get(i));
+                    index++;
+                    match_journee.get(index).setDateMatch(dates_tours.get(i + 1));
+                    index++;
+
+                    i++;
+                }
+
+            }
+
+            if (match_journee.size() == 4) {//si on joue les demis  finale
+                int index = 0;
+                int i = 10;
+
+                match_journee.get(index).setDateMatch(dates_tours.get(i));
+                index++;
+                match_journee.get(index).setDateMatch(dates_tours.get(i + 1));
+                index++;
+                match_journee.get(index).setDateMatch(dates_tours.get(i));
+                index++;
+                match_journee.get(index).setDateMatch(dates_tours.get(i + 1));
+                index++;
+
+            }
+
         }
-        
+
         public void simuler_tour() {
             Random rd = new Random();
             int scoreA, scoreB;//random pour les deux scores
@@ -374,18 +438,18 @@ public class ChampionsLeague extends Europeenne {
                 m.setScoreLocal(scoreA);
                 m.setScoreExterieur(scoreB);
             }
-            
+
         }
-        
+
         public void afficher_resultats_tour() {
-            
+
             System.out.println();
             System.out.println("----Match du tour N° " + this.getNum_Journee() + "----");
-            
+
             for (Match m : match_journee) {
-                
+
                 System.out.println(m.getEquipeLocale().getNomEquipe() + " vs " + m.getEquipeExterieure().getNomEquipe());
-                
+
             }
             Equipe locale, exte;
             System.out.println();
@@ -393,18 +457,18 @@ public class ChampionsLeague extends Europeenne {
             for (Match m : match_journee) {//pour tout les matchs du tour
                 locale = m.getEquipeLocale();
                 exte = m.getEquipeExterieure();
-                
+
                 System.out.println("DATE: " + m.getDateMatch() + " " + locale.getNomEquipe() + " " + m.getScoreLocal() + " - " + m.getScoreExterieur() + " " + exte.getNomEquipe());
             }
-            
+
             if (num_Journee == 1) {
-                
+
                 System.out.println("Le champion est ");
-                
+
             }
-            
+
         }
-        
+
         public ArrayList<Equipe> getQualifiesTourSuivant() {
             ArrayList<Equipe> list_retour = new ArrayList();
             int total_but_equipeA, total_but_equipeB, tot_ext_equipeA, tot_ext_equipeB;
@@ -412,25 +476,25 @@ public class ChampionsLeague extends Europeenne {
             for (int i = 0; i < match_journee.size(); i = i + 2) {
                 match_aller = match_journee.get(i);
                 match_retour = match_journee.get(i + 1);
-                
+
                 total_but_equipeA = +match_aller.getScoreLocal() + match_retour.getScoreExterieur();//l'equipe A est l'équipe à domicile lors du match aller
                 tot_ext_equipeA = +match_retour.getScoreExterieur();
-                
+
                 total_but_equipeB = +match_aller.getScoreExterieur() + match_retour.getScoreLocal();
                 tot_ext_equipeB = +match_retour.getScoreLocal();
-                
+
                 if (total_but_equipeA == total_but_equipeB) {
                     if (tot_ext_equipeA == tot_ext_equipeB) {
                         list_retour.add(match_aller.getEquipeLocale());
                     }
-                    
+
                     if (tot_ext_equipeA > tot_ext_equipeB) {
                         list_retour.add(match_aller.getEquipeLocale());
                     }
                     if (tot_ext_equipeA < tot_ext_equipeB) {
                         list_retour.add(match_aller.getEquipeExterieure());
                     }
-                    
+
                 } else {
                     if (total_but_equipeA > total_but_equipeB) {
                         list_retour.add(match_aller.getEquipeLocale());
@@ -438,27 +502,27 @@ public class ChampionsLeague extends Europeenne {
                     if (total_but_equipeA < total_but_equipeB) {
                         list_retour.add(match_aller.getEquipeExterieure());
                     }
-                    
+
                     if (total_but_equipeA == total_but_equipeB) {
                         list_retour.add(match_aller.getEquipeLocale());
                     }
-                    
+
                 }
             }
             return list_retour;
         }
     }
-    
+
     public class Poule {
-        
+
         int numPoule;
         ArrayList<Equipe> equipes;
         ArrayList<Position> classement;
-        
+
         public int getNumPoule() {
             return numPoule;
         }
-        
+
         public boolean memeGroupe(Equipe e1, Equipe e2) {
             boolean temp = false;
             for (Equipe p : equipes) {
@@ -476,45 +540,45 @@ public class ChampionsLeague extends Europeenne {
             }
             return false;
         }
-        
+
         public Poule(int i) {
             this.numPoule = i;
             equipes = new ArrayList<>();
             classement = new ArrayList<>();
             phase_finale = new ArrayList<>();
         }
-        
+
         public ArrayList<Equipe> getEquipes() {
             return equipes;
         }
-        
+
         public void setEquipes(ArrayList<Equipe> equipes) {
             this.equipes = equipes;
         }
-        
+
         public void creer_group(ArrayList<Equipe> participants) {
             int i = 0;
-            
+
             int randEquipe;
             Equipe t;
             Random rd = new Random();
-            
+
             while (i < 4) {
                 randEquipe = rd.nextInt(participants.size());
                 t = participants.get(randEquipe);
                 this.equipes.add(t);
                 participants.remove(t);
                 classement.add(new Position(t, i + 1));
-                
+
                 i++;
             }
-            
+
         }
-        
+
         public ArrayList<Position> getClassement() {
             return classement;
         }
-        
+
         private Position getPositionEquipe(Equipe e) {
             for (Position p : classement) {
                 if (p.getEquipe() == e) {
@@ -523,9 +587,9 @@ public class ChampionsLeague extends Europeenne {
             }
             return null;
         }
-        
+
         private void majClassement(int num_journee) {
-            
+
             ArrayList<Match> liste_match = calendrier.get(num_journee).getMatch_group(this.numPoule);
             for (Match m : liste_match) {
                 for (Equipe e : m.getEquipesMatch()) {
@@ -536,7 +600,7 @@ public class ChampionsLeague extends Europeenne {
                     }
                 }
             }
-            
+
             Position pos_tmp;
             Position[] temp = classement.toArray(new Position[classement.size()]);
             int ecartE1 = 0, ecartE2 = 0;
@@ -574,7 +638,7 @@ public class ChampionsLeague extends Europeenne {
                 p.setPositionEquipe(i++);
             }
         }
-        
+
         void afficherPoule() {
             System.out.println("------------");
             System.out.println("Poule " + numPoule);
@@ -583,7 +647,7 @@ public class ChampionsLeague extends Europeenne {
             }
             System.out.println("------------");
         }
-        
+
     }
-    
+
 }

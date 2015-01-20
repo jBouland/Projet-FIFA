@@ -21,28 +21,28 @@ public class ModelTableCoupe extends AbstractTableModel {
     public void setValueAt(Object o, int i, int i1) {
         /*if (isCellEditable(i, i1) == true) {
 
-            if (i1 == 1) {
-                liste.get(i).butEquipe1 = (String) o;
-                fireTableCellUpdated(i, i1);
-               int x= Integer.parseInt(liste.get(i).butEquipe1);
-                System.out.println(x);
-                 c.ajoutResultat(x,journee.getMatch_journee().get(i).getScoreExterieur(),journee.getMatch_journee().get(i),null);
+         if (i1 == 1) {
+         liste.get(i).butEquipe1 = (String) o;
+         fireTableCellUpdated(i, i1);
+         int x= Integer.parseInt(liste.get(i).butEquipe1);
+         System.out.println(x);
+         c.ajoutResultat(x,journee.getMatch_journee().get(i).getScoreExterieur(),journee.getMatch_journee().get(i),null);
               
                 
-            }
-            if (i1==2){
+         }
+         if (i1==2){
                 
-                liste.get(i).butEquipe2 = (String) o;
-                fireTableCellUpdated(i, i1);
-                 int x= Integer.parseInt(liste.get(i).butEquipe1);
+         liste.get(i).butEquipe2 = (String) o;
+         fireTableCellUpdated(i, i1);
+         int x= Integer.parseInt(liste.get(i).butEquipe1);
                 
-                 c.ajoutResultat(journee.getMatch_journee().get(i).getScoreLocal(),x,journee.getMatch_journee().get(i),null);
+         c.ajoutResultat(journee.getMatch_journee().get(i).getScoreLocal(),x,journee.getMatch_journee().get(i),null);
               
-            }
+         }
            
             
 
-           }*/
+         }*/
     }
 
     @Override
@@ -64,34 +64,35 @@ public class ModelTableCoupe extends AbstractTableModel {
 
     private class Ligne {
 
-        String equipe1, equipe2, butEquipe1, butEquipe2,date;
+        String equipe1, equipe2, butEquipe1, butEquipe2, date, poule;
 
-        public Ligne(String equipe1_, String butEquipe1_, String butEquipe2_, String equipe2_,String date) {
+        public Ligne(String equipe1_, String butEquipe1_, String butEquipe2_, String equipe2_, String date, String poule) {
             this.equipe1 = equipe1_;
             this.equipe2 = equipe2_;
             this.butEquipe1 = butEquipe1_;
             this.butEquipe2 = butEquipe2_;
-             this.date=date;
+            this.date = date;
+            this.poule = poule;
 
+        }
     }
-    }
-    private String[] entetes = {"Equipe local", "But", "But", "Equipe2","Date"};
+    
+    private String[] entetes = {"Equipe local", "But", "But", "Equipe2", "Date", "Poule"};
     private ArrayList<Ligne> liste = new ArrayList();
     private Journee journee;
-    private  ChampionsLeague c;
+    private ChampionsLeague c;
 
-    
-    public ModelTableCoupe(Journee j , ChampionsLeague c) {
+    public ModelTableCoupe(Journee j, ChampionsLeague c) {
         journee = j;
-        this.c=c;
+        this.c = c;
         for (int i = 0; i < j.getMatch_journee().size(); i++) {
             liste.add(new Ligne(
                     j.getMatch_journee().get(i).getEquipeLocale().getNomEquipe(),
                     Integer.toString(j.getMatch_journee().get(i).getScoreLocal()),
                     Integer.toString(j.getMatch_journee().get(i).getScoreExterieur()),
                     j.getMatch_journee().get(i).getEquipeExterieure().getNomEquipe(),
-                    j.getMatch_journee().get(i).getDateMatch().toString())
-            
+                    j.getMatch_journee().get(i).getDateMatch().toString(),
+                    Integer.toString(j.getMatch_journee().get(i).getNum_poule()))
             );
 
         }
@@ -108,11 +109,15 @@ public class ModelTableCoupe extends AbstractTableModel {
         }
         if (column == 2) {
             return liste.get(row).butEquipe2;
-        } 
-        if (column == 3) {        
+        }
+        if (column == 3) {
             return liste.get(row).equipe2;
         }
-        else return liste.get(row).date;
+        if (column == 4) {
+            return liste.get(row).date;
+        } else {
+            return liste.get(row).poule;
+        }
     }
 
     @Override
