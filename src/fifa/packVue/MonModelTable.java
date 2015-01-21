@@ -29,7 +29,7 @@ public class MonModelTable extends AbstractTableModel {
                     Integer.toString(j.getMatch_journee().get(i).getScoreLocal()),
                     Integer.toString(j.getMatch_journee().get(i).getScoreExterieur()),
                     j.getMatch_journee().get(i).getEquipeExterieure().getNomEquipe(),
-                    j.getMatch_journee().get(i).getDateMatch().toString())
+                    Integer.toString(j.getMatch_journee().get(i).getDateMatch().getDate())+"/"+Integer.toString(j.getMatch_journee().get(i).getDateMatch().getMonth()+1)+"/"+Integer.toString(j.getMatch_journee().get(i).getDateMatch().getYear()+1900))
             );
 
         }

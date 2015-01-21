@@ -5,11 +5,10 @@
  */
 package fifa;
 
-import fifa.packVue.VueCoupeGlobale;
-import fifa.packVue.VueGlobaleAdmin;
-import java.util.ArrayList;
-import java.util.Date;
+
+import java.awt.Color;
 import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 
 /**
  *

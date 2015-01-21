@@ -6,21 +6,20 @@
 package fifa.packVue;
 
 import fifa.Championnat;
-import fifa.Pays;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 /**
@@ -36,18 +35,18 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
     private VueClassement vc;
     private AffichageJournee aj;
 
-    private JLabel selectChampionnat = new JLabel("Veuillez sélectionner un championnat");
-    private JLabel selectJournee = new JLabel("Veuillez sélectionner une journée");
-    private JLabel Titre = new JLabel("Bienvenue Admin");
-
-    private JComboBox listeChampionnatJComboBox;
-    private JComboBox listeJournéeJComboBox;
-
     private int journeSelect = 0;
     private Championnat championnatActu;
 
-    private JButton passageCL;
     private VueCoupeGlobale fenetre;
+    private Font f = new Font("Arial", Font.BOLD, 14);
+
+    private JMenuBar menu;
+    private JMenu coupe, journeem;
+    private JMenu choixpays;
+    private JMenuItem cl;
+    private ArrayList<JMenuItem> items;
+    private ArrayList<JMenuItem> itemsJournee;
 
     public VueGlobaleAdmin(ArrayList<Championnat> liste, VueCoupeGlobale fenetre) {
         this.listeChampionnat = liste;
@@ -58,63 +57,32 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
 
         afficheFond();
         championnatActu = listeChampionnat.get(0);
-        creationComboChampionnat();
-        creationComboJournee();
-
-        listeChampionnatJComboBox.addActionListener(this);
-        listeJournéeJComboBox.addActionListener(this);
-
+        creationMenuChampionnat();
         init();
 
-        passageCL.addActionListener(this);
+        cl.addActionListener(this);
 
     }
 
     public void init() {
-
-        passageCL = new JButton("Champions League");
         vc = new VueClassement(null);
         aj = new AffichageJournee(championnatActu, journeSelect);
         JPanel mainPanel = new JPanel();
 
         // ajout du gestionnaire de placement 
         mainPanel.setLayout(new GridBagLayout());
+        mainPanel.setBackground(new Color(255, 255, 255, 65));
+
         GridBagConstraints cont = new GridBagConstraints();
-        cont.fill = GridBagConstraints.HORIZONTAL;
+        cont.fill = GridBagConstraints.CENTER;
         cont.ipadx = 5;
 
+        // Ajout du petit panneau dans le gros panneau de la JFrame
         cont.gridx = 0;
         cont.gridy = 0;
-        mainPanel.add(Titre, cont);
-
-        cont.gridx = 1;
-        cont.gridy = 0;
-        mainPanel.add(passageCL, cont);
-
-        cont.gridx = 0;
-        cont.gridy = 1;
-        mainPanel.add(selectChampionnat, cont);
-
-        cont.gridx = 1;
-        cont.gridy = 1;
-        mainPanel.add(listeChampionnatJComboBox, cont);
-
-        cont.gridx = 2;
-        cont.gridy = 1;
-        mainPanel.add(selectJournee, cont);
-
-        cont.gridx = 3;
-        cont.gridy = 1;
-        mainPanel.add(listeJournéeJComboBox, cont);
-
-// Ajout du petit panneau dans le gros panneau de la JFrame
-        cont.gridwidth = 5;
-        cont.gridx = 0;
-        cont.gridy = 2;
         mainPanel.add(vc, cont);
 
-        cont.gridheight = 6;
-        cont.gridx = 4;
+        cont.gridx = 1;
         cont.gridy = 0;
         mainPanel.add(aj, cont);
 
@@ -148,66 +116,74 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
         this.pack();
     }
 
-    public void creationComboChampionnat() {
-        listeChampionnatJComboBox = new JComboBox();
-
+    public void creationMenuChampionnat() {
+        items = new ArrayList<>();
+        menu = new JMenuBar();
+        coupe = new JMenu("Coupes");
+        cl = new JMenuItem("Champions League");
+        coupe.add(cl);
+        choixpays = new JMenu("Choix Pays");
         for (int i = 0; i < listeChampionnat.size(); i++) {
-            listeChampionnatJComboBox.addItem(listeChampionnat.get(i).getNomCompetition());
-
+            items.add(new JMenuItem(listeChampionnat.get(i).getNomCompetition()));
+            choixpays.add(items.get(i));
+            items.get(i).addActionListener(this);
         }
+        coupe.setFont(f);
+        choixpays.setFont(f);
+        menu.add(coupe);
+        menu.add(choixpays);
+
+        this.setJMenuBar(menu);
+        creationMenuJourneeChampionnat();
     }
 
-    public void creationComboJournee() {
-        listeJournéeJComboBox = new JComboBox();
+    public void creationMenuJourneeChampionnat() {
+        if (journeem != null) {
+            menu.remove(journeem);
+        }
+        itemsJournee = new ArrayList<>();
+        journeem = new JMenu("Journée");
         for (int i = 1; i < (championnatActu.getEquipe().size() - 1) * 2 + 1; i++) {
-            listeJournéeJComboBox.addItem(i);
+            itemsJournee.add(new JMenuItem(Integer.toString(i)));
+            journeem.add(itemsJournee.get(i - 1));
+            itemsJournee.get(i - 1).addActionListener(this);
         }
+        journeem.setFont(f);
+        menu.add(journeem);
     }
 
-
-    /*public void CreationChampionnatTemp() {
-
-     Pays test = new Pays(1, "test");
-     test.importEquipe();
-     test.afficheEquipe();
-     Championnat chp = new Championnat("test", 1, 1, test.getEquipe());
-     // chp.affiche();
-     listeChampionnat.add(chp);
-
-     }*/
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == listeChampionnatJComboBox) {
-            for (Championnat champ : listeChampionnat) {
-                if (champ.getNomCompetition() == null ? listeChampionnatJComboBox.getSelectedItem().toString() == null : champ.getNomCompetition().equals(listeChampionnatJComboBox.getSelectedItem().toString())) {
-                    vc.chargementClassement(champ);
-                    aj.setChamp(champ);
-                    aj.init();
-                    championnatActu = champ;
-                    int temp = listeJournéeJComboBox.getItemCount();
-                    for (int i = 0; i < temp - 1; i++) {
-                        listeJournéeJComboBox.removeItemAt(0);
-                    }
-                    for (int i = 1; i < (championnatActu.getEquipe().size() - 1) * 2 + 1; i++) {
-                        listeJournéeJComboBox.addItem(i);
-                    }
-                    listeJournéeJComboBox.removeItemAt(0);
-                    listeJournéeJComboBox.setSelectedIndex(0);
-                    championnatActu.addObserver(vc);
-                    championnatActu.addObserver(aj);
-                    this.repaint();
-                    this.pack();
-                }
-            }
-        } else if (ae.getSource() == listeJournéeJComboBox) {
-            aj.setJourn(listeJournéeJComboBox.getSelectedIndex());
-            aj.init();
-        } else if (ae.getSource() == passageCL) {
+        if (ae.getSource() == cl) {
             this.setVisible(false);
             fenetre.setVisible(true);
         }
-        
-        
+        for (JMenuItem it : items) {
+            if (ae.getSource() == it) {
+                for (Championnat champ : listeChampionnat) {
+                    if (champ.getNomCompetition() == it.getText()) {
+                        vc.chargementClassement(champ);
+                        aj.setChamp(champ);
+                        aj.setJourn(0);
+                        aj.init();
+                        championnatActu = champ;
+                        this.creationMenuJourneeChampionnat();
+
+                        championnatActu.addObserver(vc);
+                        championnatActu.addObserver(aj);
+                        this.repaint();
+                        this.pack();
+                    }
+                }
+            }
+        }
+        for (JMenuItem it2 : itemsJournee) {
+            if (ae.getSource() == it2) {
+                aj.setJourn(Integer.parseInt(it2.getText()) - 1);
+                aj.init();
+            }
+        }
+
     }
 
 }

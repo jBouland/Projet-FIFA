@@ -64,7 +64,7 @@ public class Instance {
 
         for(Pays p : europe) {
             if (!p.getEquipe().isEmpty()) {
-                Championnat chp = new Championnat(p.getNom(), 2015, 1, p.getEquipe());
+                Championnat chp = new Championnat(p.getNom(), 2014, 1, p.getEquipe());
                 liste.add(chp);
             }
         }

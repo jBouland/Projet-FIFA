@@ -8,6 +8,7 @@ package fifa.packVue;
 import fifa.ChampionsLeague;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,9 +17,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 /**
@@ -33,20 +36,17 @@ public final class VueCoupeGlobale extends JFrame implements ActionListener {
     };
 
     private VueJourneeCoupe vJourneCoupe;
-    private JLabel selectCoupe = new JLabel("Veuillez sélectionner une coupe");
-
-    private JLabel selectTour = new JLabel("Veuillez sélectionner une tour");
-    private JLabel Titre = new JLabel("Bienvenue Admin");
-
-    private JComboBox listeCoupeJComboBox;
-    private JComboBox listeTourJComboBox;
 
     private int tourSelect = 0;
     private ChampionsLeague CoupeActu;
     private VueClassementCoupeFinale fenetreClassement;
-    private JButton classement;
     private VueGlobaleAdmin fenetre;
-    private JButton passageChamp;
+
+    private JMenuBar menu;
+    private JMenu championnatm, journeem, classementm;
+    private JMenuItem acceschampionnat, accesclassement;
+    private ArrayList<JMenuItem> itemsJournee;
+    private Font f = new Font("Arial", Font.BOLD, 14);
 
     public VueCoupeGlobale(ArrayList<ChampionsLeague> liste) { // il faut que tu rajoutes ou prendre les coupe
         this.setTitle("Champions League");
@@ -55,17 +55,10 @@ public final class VueCoupeGlobale extends JFrame implements ActionListener {
 
         afficheFond();
         listeCoupe = liste;
-        creationComboCoupe();
-        creationComboTour();
-        listeTourJComboBox.addActionListener(this);
-        classement = new JButton("Classement");
-        classement.addActionListener(this);
-        //jbtEquipeparJournee.addActionListener(this);
-        //jbtGenererResultats.addActionListener(this);
+        creationMenuChampionnat();
+        CoupeActu = listeCoupe.get(0);
 
         this.init(liste);
-
-        passageChamp.addActionListener(this);
 
     }
 
@@ -73,59 +66,24 @@ public final class VueCoupeGlobale extends JFrame implements ActionListener {
 
         listeCoupe = liste;
 
-        passageChamp = new JButton("Championnats");
-
         vJourneCoupe = new VueJourneeCoupe(CoupeActu, tourSelect);
         JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(new Color(255, 255, 255, 65));
 
         // ajout du gestionnaire de placement 
         mainPanel.setLayout(new GridBagLayout());
         GridBagConstraints cont = new GridBagConstraints();
-        cont.fill = GridBagConstraints.HORIZONTAL;
+        cont.fill = GridBagConstraints.RELATIVE;
         cont.ipadx = 5;
 
-        cont.gridx = 0;
-        cont.gridy = 0;
-        mainPanel.add(Titre, cont);
-
-        cont.gridx = 0;
-        cont.gridy = 1;
-        mainPanel.add(selectCoupe, cont);
-
-        cont.gridx = 1;
-        cont.gridy = 0;
-        mainPanel.add(passageChamp, cont);
-
-        cont.gridx = 1;
-        cont.gridy = 1;
-        mainPanel.add(listeCoupeJComboBox, cont);
-
-        cont.gridx = 2;
-        cont.gridy = 1;
-        mainPanel.add(selectTour, cont);
-
-        cont.gridx = 3;
-        cont.gridy = 1;
-        mainPanel.add(listeTourJComboBox, cont);
-
-        cont.gridx = 4;
-        cont.gridy = 1;
-        mainPanel.add(classement, cont);
-
-        /* cont.gridx = 4;
-         cont.gridy = 1;
-         mainPanel.add(jbtGenererResultats, cont);*/
-// Ajout du petit panneau dans le gros panneau de la JFrame
-        /*cont.gridx = 5;
-         cont.gridy = 1;
-         mainPanel.add(jbtEquipeparJournee, cont);*/
         cont.gridheight = 3;
-        cont.gridx = 5;
-        cont.gridy = 2;
-        mainPanel.add(vJourneCoupe, cont);
-
         cont.gridx = 0;
         cont.gridy = 0;
+        cont.gridwidth = 100;
+        mainPanel.add(vJourneCoupe, cont);
+        cont.gridwidth = 1;
+        cont.gridx = 0;
+        cont.gridy = 1;
 
         //  vJourneCoupe.chargementClassement(CoupeActu);
         this.add(mainPanel, cont);
@@ -150,55 +108,108 @@ public final class VueCoupeGlobale extends JFrame implements ActionListener {
         this.pack();
     }
 
-    private void creationComboCoupe() {
-        listeCoupeJComboBox = new JComboBox();
-        for (int i = 0; i < listeCoupe.size(); i++) {
-            listeCoupeJComboBox.addItem(listeCoupe.get(i).getNomCompetition());
+    public void creationMenuChampionnat() {
+        /*items = new JComboBox();
 
-        }
-        CoupeActu = listeCoupe.get(0);
+         for (int i = 0; i < listeChampionnat.size(); i++) {
+         listeChampionnatJComboBox.addItem(listeChampionnat.get(i).getNomCompetition());
 
+         }*/
+        menu = new JMenuBar();
+
+        championnatm = new JMenu("Championnats");
+        acceschampionnat = new JMenuItem("Ligues Nationales");
+        championnatm.add(acceschampionnat);
+        championnatm.setFont(f);
+        menu.add(championnatm);
+
+        classementm = new JMenu("Classements");
+        accesclassement = new JMenuItem("Phases de Groupe");
+        classementm.add(accesclassement);
+        classementm.setFont(f);
+        menu.add(classementm);
+
+        acceschampionnat.addActionListener(this);
+        accesclassement.addActionListener(this);
+        this.setJMenuBar(menu);
+        creationMenuJourneeCoupe();
     }
 
-    private void creationComboTour() {
-        listeTourJComboBox = new JComboBox(tour);
+    public void creationMenuJourneeCoupe() {
+        itemsJournee = new ArrayList<>();
+        journeem = new JMenu("Journées");
+        for (int i = 0; i < tour.length; i++) {
+            itemsJournee.add(new JMenuItem(tour[i]));
+            journeem.add(itemsJournee.get(i));
+            itemsJournee.get(i).addActionListener(this);
+        }
+        journeem.setFont(f);
+        menu.add(journeem);
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        /* if (ae.getSource() == jbtGenererResultats) {
-         CoupeActu.simulerPhasePoule();
-         CoupeActu.simulerPhaseFinale();
+        /*if (ae.getSource() == listeCoupeJComboBox) {
+         CoupeActu = listeCoupe.get(listeCoupeJComboBox.getSelectedIndex());
 
          }
-         if (ae.getSource() == jbtEquipeparJournee) {
 
+         if (ae.getSource() == listeTourJComboBox) {
+         try {
+         tourSelect = listeTourJComboBox.getSelectedIndex();
+         vJourneCoupe.setJourn(tourSelect);
+         vJourneCoupe.init();
+         this.pack();
+         } catch (Exception e) {
+
+         }
          }*/
-        if (ae.getSource() == listeCoupeJComboBox) {
-            CoupeActu = listeCoupe.get(listeCoupeJComboBox.getSelectedIndex());
 
-        }
-
-        if (ae.getSource() == listeTourJComboBox) {
-            try {
-                tourSelect = listeTourJComboBox.getSelectedIndex();
-                vJourneCoupe.setJourn(tourSelect);
-                vJourneCoupe.init();
-                this.pack();
-            } catch (Exception e) {
-
-            }
-        }
-
-        if (ae.getSource() == classement) {
+        if (ae.getSource() == accesclassement) {
             VueClassementCoupeFinale vccf = new VueClassementCoupeFinale(listeCoupe);
             vccf.setVisible(true);
         }
-        if (ae.getSource() == passageChamp) {
+        if (ae.getSource() == acceschampionnat) {
             this.setVisible(false);
             fenetre.setVisible(true);
         }
 
+        int k = 0;
+        for (JMenuItem it2 : itemsJournee) {
+            if (ae.getSource() == it2) {
+                try {
+                    tourSelect = k;
+                    vJourneCoupe.setJourn(tourSelect);
+                    vJourneCoupe.init();
+                    this.pack();
+                    break;
+                } catch (Exception e) {
+
+                }
+            }
+            k++;
+        }
+
+        /*for (JMenuItem it : items) {
+         if (ae.getSource() == it) {
+         for (Championnat champ : listeChampionnat) {
+         if (champ.getNomCompetition() == it.getText()) {
+         //if (champ.getNomCompetition() == null ? listeChampionnatJComboBox.getSelectedItem().toString() == null : champ.getNomCompetition().equals(listeChampionnatJComboBox.getSelectedItem().toString())) {
+         vc.chargementClassement(champ);
+         aj.setChamp(champ);
+         aj.setJourn(0);
+         aj.init();
+         championnatActu = champ;
+         this.creationMenuJourneeChampionnat();
+
+         championnatActu.addObserver(vc);
+         championnatActu.addObserver(aj);
+         this.repaint();
+         this.pack();
+         }
+         }
+         }
+         }*/
     }
 
     public void passagefenetre(VueGlobaleAdmin fenetre) {

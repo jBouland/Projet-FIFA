@@ -58,7 +58,7 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer,
         this.setBorder(new TitledBorder("Journée " + z));
 
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setPreferredSize(new Dimension(450, 167));
+        scroll.setPreferredSize(new Dimension(600, 250));
 
         this.setLayout(new GridBagLayout());
 
@@ -119,17 +119,17 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer,
                 Point p = e.getPoint();
                 JTable source = (JTable) e.getSource();
                 int i = source.rowAtPoint(p);
-                Match m1, m2=null;
+                Match m1, m2 = null;
                 int num_poule;
                 m1 = champ.getListeJournee().get(journ).getMatch_journee().get(i);
-                num_poule=m1.getNum_poule();
+                num_poule = m1.getNum_poule();
                 ArrayList<Match> temp = champ.getListeJournee().get(journ).getMatch_journee();
-                for(Match m : temp){
-                    if(m!=m1 && m.getNum_poule()==num_poule){
-                        m2=m;
+                for (Match m : temp) {
+                    if (m != m1 && m.getNum_poule() == num_poule) {
+                        m2 = m;
                     }
                 }
-                if (m1!=null && m2!=null && m1.isEstModifie() == false && m2.isEstModifie() == false) {
+                if (m1 != null && m2 != null && m1.isEstModifie() == false && m2.isEstModifie() == false) {
                     VueScore vs = new VueScore(m1, m2, champ, this);
                     vs.setVisible(true);
                 }

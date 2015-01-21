@@ -6,6 +6,7 @@
 package fifa.packVue;
 
 import fifa.ChampionsLeague;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.HeadlessException;
@@ -23,13 +24,13 @@ public class VueClassementCoupeFinale extends JFrame {
     VueClassementCoupe vc;
 
     public VueClassementCoupeFinale(ArrayList<ChampionsLeague> listeCoupe) {
-        this.setPreferredSize(new Dimension(1200,500));
-        this.setMinimumSize(new Dimension(1200,500));
+        this.setPreferredSize(new Dimension(900, 800));
+        this.setMinimumSize(new Dimension(900, 800));
         this.setResizable(false);
         GridBagConstraints cont = new GridBagConstraints();
         cont.fill = GridBagConstraints.HORIZONTAL;
         JPanel mainPanel = new JPanel();
-        
+
         for (int i = 0; i < listeCoupe.get(0).getPhase_poule().size(); i++) {
             vc = new VueClassementCoupe(listeCoupe.get(0).getPhase_poule().get(i));
             vc.chargementClassement(listeCoupe.get(0).getPhase_poule().get(i));

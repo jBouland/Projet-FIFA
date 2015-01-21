@@ -4,7 +4,6 @@
  */
 package fifa.packVue;
 
-
 import fifa.ChampionsLeague;
 import fifa.Journee;
 import static fifa.packVue.MonModelTable.isNumeric;
@@ -19,28 +18,6 @@ public class ModelTableCoupe extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object o, int i, int i1) {
-        /*if (isCellEditable(i, i1) == true) {
-
-            if (testValeur((String)o )==true) {
-                if (i1 == 1) {
-                    liste.get(i).butEquipe1 = (String) o;
-                    fireTableCellUpdated(i, i1);
-                    int x = Integer.parseInt(liste.get(i).butEquipe1);
-                    System.out.println(x);
-                    c.ajoutResultat(x, journee.getMatch_journee().get(i).getScoreExterieur(), journee.getMatch_journee().get(i), null);
-
-                }
-            
-            if (i1 == 2) {
-
-                liste.get(i).butEquipe2 = (String) o;
-                fireTableCellUpdated(i, i1);
-                int x = Integer.parseInt(liste.get(i).butEquipe2);
-                c.ajoutResultat(journee.getMatch_journee().get(i).getScoreLocal(), x, journee.getMatch_journee().get(i), null);
-
-            }
-            }
-        }*/         
     }
 
     public boolean testValeur(String val) {
@@ -48,31 +25,19 @@ public class ModelTableCoupe extends AbstractTableModel {
         if (isNumeric(val) == false) {
             return false;
         }
-            if (Integer.parseInt(val) < 0) {
+        if (Integer.parseInt(val) < 0) {
             return false;
-        } 
+        }
         if (Integer.parseInt(val) > 1000) {
             return false;
         } else {
             return true;
         }
     }
-    
+
     @Override
     public boolean isCellEditable(int i, int i1) {
-        //if (journee.getEstModifiable() == false) {
-            return false;
-        /*} else {
-            if (i1 == 1) {
-                return true;
-            }
-            if (i1 == 2) {
-                return true;
-            } else {
-                return false;
-            }
-
-        }*/
+        return false;
     }
 
     private class Ligne {
@@ -89,7 +54,7 @@ public class ModelTableCoupe extends AbstractTableModel {
 
         }
     }
-    
+
     private String[] entetes = {"Equipe local", "But", "But", "Equipe2", "Date", "Poule"};
     private ArrayList<Ligne> liste = new ArrayList();
     private Journee journee;
@@ -104,7 +69,7 @@ public class ModelTableCoupe extends AbstractTableModel {
                     Integer.toString(j.getMatch_journee().get(i).getScoreLocal()),
                     Integer.toString(j.getMatch_journee().get(i).getScoreExterieur()),
                     j.getMatch_journee().get(i).getEquipeExterieure().getNomEquipe(),
-                    j.getMatch_journee().get(i).getDateMatch().toString(),
+                    Integer.toString(j.getMatch_journee().get(i).getDateMatch().getDate()) + "/" + Integer.toString(j.getMatch_journee().get(i).getDateMatch().getMonth() + 1) + "/" + Integer.toString(j.getMatch_journee().get(i).getDateMatch().getYear() + 1900),
                     Integer.toString(j.getMatch_journee().get(i).getNum_poule()))
             );
 
@@ -151,11 +116,6 @@ public class ModelTableCoupe extends AbstractTableModel {
     public String getColumnName(int column) {
         return entetes[column];
     }
-    /*
-     public void addLigne(String prenom, String nom) {
-     addLigne(new Ligne(prenom, nom));
-     }
-     */
 
     private void addLigne(Ligne l) {
         liste.add(l);

@@ -8,8 +8,6 @@ package fifa;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 
 public class Championnat extends Nationale {
 
@@ -36,7 +34,7 @@ public class Championnat extends Nationale {
     }
 
     public Championnat(String nomCompetition, int saison, int idCompetition, ArrayList<Equipe> equipe) {
-        super(nomCompetition, saison, idCompetition, equipe);
+        super(nomCompetition, idCompetition, saison, equipe);
         nbEquipe = equipe.size();
         nbJournee = 2 * (nbEquipe - 1);
         rencontres = new Match[nbJournee][nbEquipe / 2];
@@ -72,8 +70,8 @@ public class Championnat extends Nationale {
 
     public boolean razMatches() {
 
-        for ( Journee j :listeJournee){
-            for(Match m : j.getMatch_journee()){
+        for (Journee j : listeJournee) {
+            for (Match m : j.getMatch_journee()) {
                 m.razMatch();
             }
         }
@@ -146,9 +144,9 @@ public class Championnat extends Nationale {
 
         for (int i = 0; i < nbJournee; i++) {
             for (int j = 0; j < nbEquipe / 2; j++) {
-                scoreLocal = (int) (Math.random() * 5);
-                scoreEx = (int) (Math.random() * 5);
-                ajoutResultat(scoreLocal, scoreEx, rencontres[i][j], null);
+                    scoreLocal = (int) (Math.random() * 5);
+                    scoreEx = (int) (Math.random() * 5);
+                    ajoutResultat(scoreLocal, scoreEx, rencontres[i][j], null);
             }
         }
 
@@ -158,10 +156,14 @@ public class Championnat extends Nationale {
         if (jour >= 0 && jour < nbJournee) {
             int scoreLocal;
             int scoreEx;
-            for (int j = 0; j < nbEquipe / 2; j++) {
-                scoreLocal = (int) (Math.random() * 5);
-                scoreEx = (int) (Math.random() * 5);
-                ajoutResultat(scoreLocal, scoreEx, rencontres[jour][j], null);
+           for (int j = 0; j < nbEquipe / 2; j++) {
+                if (rencontres[jour][j].isEstModifie() == false) {
+
+                    scoreLocal = (int) (Math.random() * 5);
+                    scoreEx = (int) (Math.random() * 5);
+                    ajoutResultat(scoreLocal, scoreEx, rencontres[jour][j], null);
+                    rencontres[jour][j].setEstModifie(true);
+                }
             }
         }
     }
