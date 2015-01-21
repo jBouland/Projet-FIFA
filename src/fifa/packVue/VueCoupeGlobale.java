@@ -142,7 +142,7 @@ public final class VueCoupeGlobale extends JFrame implements ActionListener {
         this.setContentPane(new JPanel() {
 
             public void paintComponent(Graphics g) {
-                g.drawImage((new ImageIcon("src/Ressources/cl.jpeg")).getImage(), 0, 0, 1280,720 , null);
+                g.drawImage((new ImageIcon("src/Ressources/cl.jpeg")).getImage(), 0, 0, 1280, 720, null);
             }
 
         });
@@ -180,13 +180,13 @@ public final class VueCoupeGlobale extends JFrame implements ActionListener {
         }
 
         if (ae.getSource() == listeTourJComboBox) {
-            try{
-            tourSelect = listeTourJComboBox.getSelectedIndex();
-            vJourneCoupe.setJourn(tourSelect);
-            vJourneCoupe.init();
-            this.pack();
-            }catch(Exception e){
-                
+            try {
+                tourSelect = listeTourJComboBox.getSelectedIndex();
+                vJourneCoupe.setJourn(tourSelect);
+                vJourneCoupe.init();
+                this.pack();
+            } catch (Exception e) {
+
             }
         }
 
@@ -204,6 +204,5 @@ public final class VueCoupeGlobale extends JFrame implements ActionListener {
     public void passagefenetre(VueGlobaleAdmin fenetre) {
         this.fenetre = fenetre;
     }
-
 
 }

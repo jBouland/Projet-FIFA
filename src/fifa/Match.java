@@ -17,6 +17,9 @@ public class Match {
     private int idMatch;
     private int num_poule;
     private int num_journee;
+    private boolean estModifie=false;
+
+    
     private Equipe equipeLocale;
     private Equipe equipeExterieure;
     private ArrayList<Arbitre> arbitre;
@@ -67,6 +70,14 @@ public class Match {
 
     public Equipe getEquipeExterieure() {
         return equipeExterieure;
+    }
+    
+    public void setEstModifie(boolean estModifie) {
+        this.estModifie = estModifie;
+    }
+
+    public boolean isEstModifie() {
+        return estModifie;
     }
 
     public int getNum_poule() {

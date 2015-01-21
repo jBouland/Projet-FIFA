@@ -96,9 +96,9 @@ public class MonModelTable extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int i, int i1) {
-        if (journee.getEstModifiable() == false) {
+        //if (journee.getEstModifiable() == false) {
             return false;
-        } else {
+        /*} else {
             if (i1 == 1) {
                 return true;
             }
@@ -108,7 +108,7 @@ public class MonModelTable extends AbstractTableModel {
                 return false;
             }
 
-        }
+        }*/
     }
 
     private class Ligne {

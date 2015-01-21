@@ -172,6 +172,7 @@ public class Championnat extends Nationale {
         }
 
         match.setScore(scoreLocal, scoreExterieur);
+        match.setEstModifie(true);
         // match.setDateMatch(dateMatch);
 
         for (int i = 0; i < equipe.size(); i++) {

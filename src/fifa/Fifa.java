@@ -9,6 +9,7 @@ import fifa.packVue.VueCoupeGlobale;
 import fifa.packVue.VueGlobaleAdmin;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.UIManager;
 
 /**
  *
@@ -20,6 +21,11 @@ public class Fifa {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        try{
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }catch(Exception e){
+            
+        }
         Instance i = new Instance();
     }
 

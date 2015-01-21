@@ -206,6 +206,8 @@ public class VueGlobaleAdmin extends JFrame implements ActionListener {
             this.setVisible(false);
             fenetre.setVisible(true);
         }
+        
+        
     }
 
 }

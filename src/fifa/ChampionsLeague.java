@@ -293,8 +293,8 @@ public class ChampionsLeague extends Europeenne {
         }
 
         match.setScore(scoreLocal, scoreExterieur);
-        Poule p = phase_poule.get(match.getNum_poule() - 1);
-        p.majClassement(match.getNum_journee());
+        match.setEstModifie(true);
+        
 
         // match.setDateMatch(dateMatch);
         return true;
@@ -625,7 +625,7 @@ public class ChampionsLeague extends Europeenne {
             return null;
         }
 
-        private void majClassement(int num_journee) {
+        public void majClassement(int num_journee) {
 
             ArrayList<Match> liste_match = calendrier.get(num_journee).getMatch_group(this.numPoule);
             for (Match m : liste_match) {

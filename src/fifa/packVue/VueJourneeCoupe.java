@@ -7,13 +7,18 @@ package fifa.packVue;
 
 import fifa.ChampionsLeague;
 import fifa.ChampionsLeague.Poule;
+import fifa.Match;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
@@ -26,7 +31,7 @@ import javax.swing.border.TitledBorder;
  *
  * @author Flo
  */
-public class VueJourneeCoupe extends JPanel implements ActionListener, Observer {
+public class VueJourneeCoupe extends JPanel implements ActionListener, Observer, MouseListener {
 
     private JTable table;
 
@@ -73,7 +78,7 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer 
         cont.gridx = 0;
         cont.gridy = 2;
 
-        
+        table.addMouseListener(this);
         this.repaint();
         updateUI();
     }
@@ -85,19 +90,17 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer 
     public void setJourn(int journ) {
         this.journ = journ;
     }
-    
- 
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == JButton_GenererAleatoirementJournees) {
             champ.raz();
             for (Poule p : champ.getPhase_poule()) {
-                for (int i=0 ; i<p.getEquipes().size() ; i++) {
+                for (int i = 0; i < p.getEquipes().size(); i++) {
                     p.getClassement().get(i).razPosition();
                 }
             }
-            champ=champ.genererResultat();
+            champ = champ.genererResultat();
             init();
             this.repaint();
         }
@@ -107,6 +110,49 @@ public class VueJourneeCoupe extends JPanel implements ActionListener, Observer 
     @Override
     public void update(Observable o, Object o1) {
         init();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getClickCount() == 2) {
+            try {
+                Point p = e.getPoint();
+                JTable source = (JTable) e.getSource();
+                int i = source.rowAtPoint(p);
+                Match m1, m2=null;
+                int num_poule;
+                m1 = champ.getListeJournee().get(journ).getMatch_journee().get(i);
+                num_poule=m1.getNum_poule();
+                ArrayList<Match> temp = champ.getListeJournee().get(journ).getMatch_journee();
+                for(Match m : temp){
+                    if(m!=m1 && m.getNum_poule()==num_poule){
+                        m2=m;
+                    }
+                }
+                if (m1!=null && m2!=null && m1.isEstModifie() == false && m2.isEstModifie() == false) {
+                    VueScore vs = new VueScore(m1, m2, champ, this);
+                    vs.setVisible(true);
+                }
+            } catch (Exception es) {
+
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 
 }
